@@ -1,5 +1,4 @@
 ﻿using System;
-using GoogleMobileAds.Api;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,10 +13,10 @@ namespace AdsManager
 		[SerializeField] private string adMobAppID = "";
 		[SerializeField] private string interstitalAdMobId = "";
 		[SerializeField] private string videoAdMobId = "";
-		private InterstitialAd interstitialAdMob;
+		//private InterstitialAd interstitialAdMob;
 		
 		//private RewardBasedVideoAd rewardBasedAdMobVideo; 
-		private AdRequest requestAdMobInterstitial, adMobVideoRequest;
+		//private AdRequest requestAdMobInterstitial, adMobVideoRequest;
 		#endregion
 		
 		[Space(15)]
@@ -134,7 +133,7 @@ namespace AdsManager
 			MonoBehaviour.print("HandleAdLoaded event received");
 		}
 
-		public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+		public void HandleOnAdFailedToLoad(object sender)
 		{
 			//MonoBehaviour.print("HandleFailedToReceiveAd event received with message: " + args.Message);
 		}
@@ -183,7 +182,7 @@ namespace AdsManager
 		
 		}
 
-		public void HandleRewardBasedVideoFailedToLoadAdMob(object sender, AdFailedToLoadEventArgs args)
+		public void HandleRewardBasedVideoFailedToLoadAdMob(object sender)
 		{
 			//MonoBehaviour.print("HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
 
@@ -205,11 +204,11 @@ namespace AdsManager
 			//this.rewardBasedAdMobVideo.LoadAd(AdMobVideoRequest, videoAdMobId);
 		}
 
-		public void HandleRewardBasedVideoRewardedAdMob(object sender, Reward args)
+		public void HandleRewardBasedVideoRewardedAdMob(object sender)
 		{
-			string type = args.Type;
-			double amount = args.Amount;
-			MonoBehaviour.print("HandleRewardBasedVideoRewarded event received for " + amount.ToString() + " " + type);
+			//string type = args.Type;
+			//double amount = args.Amount;
+			//MonoBehaviour.print("HandleRewardBasedVideoRewarded event received for " + amount.ToString() + " " + type);
 			videoRewarded.Invoke();
 		}
 
