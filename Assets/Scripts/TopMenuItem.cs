@@ -62,7 +62,7 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 		_selectedRecord = null;
 		_selectedRecordSprite = null;
 		startPosition = transform.position;
-		SetLockImage();
+		//SetLockImage();
 	}
 	 
 
