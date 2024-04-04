@@ -150,7 +150,7 @@ public class TopMenu : MonoBehaviour {
  
 
 			//ti.bLocked = d.Locked;
-			ti.SetLockImage();
+			//ti.SetLockImage();
 		}
 
 		transform.SendMessage("MenuChanged");
