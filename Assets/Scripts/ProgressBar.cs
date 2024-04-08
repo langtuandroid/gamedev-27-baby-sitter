@@ -7,20 +7,20 @@ public class ProgressBar : MonoBehaviour {
 	
 	[FormerlySerializedAs("ProgressBarFill")] public Image progressBarFill;
 	 
-	private RectTransform rtBar;
+	private RectTransform rtBarR;
 	
-	private float lastValue = 0; //0-1
+	private float lastValueE = 0; //0-1
 	[FormerlySerializedAs("Value")] [SerializeField] private float value = 0;
  
 	private void Awake () {
 		
 		progressBarFill.fillAmount = value;
-		SetProgress (0,false);
+		SetProgressBar (0,false);
 	}
 
-	public void SetProgress(float value, bool bSmoothChange)
+	public void SetProgressBar(float value, bool bSmoothChange)
 	{
-		lastValue = progressBarFill.fillAmount;
+		lastValueE = progressBarFill.fillAmount;
 		if(value>1) value = 1;
 		if(value<0) value = 0; 
 
@@ -28,15 +28,15 @@ public class ProgressBar : MonoBehaviour {
  
 		if( bSmoothChange  )
 		{
-			StopCoroutine(nameof(SmoothUpdateProgress));
-			StartCoroutine(nameof(SmoothUpdateProgress));
+			StopCoroutine(nameof(SmoothUpdateProgressBar));
+			StartCoroutine(nameof(SmoothUpdateProgressBar));
 		}
 		else
 			progressBarFill.fillAmount = this.value;
  
 	}
  
-	private IEnumerator SmoothUpdateProgress () 
+	private IEnumerator SmoothUpdateProgressBar () 
 	{
 		if(progressBarFill.fillAmount < value)
 		{

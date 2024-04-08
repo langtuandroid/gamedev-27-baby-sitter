@@ -5,40 +5,39 @@ using UnityEngine.Serialization;
 
 public class MosquitoMove : MonoBehaviour {
 	
-	private float speed = .5f;
+	private float speedD = .5f;
 	[FormerlySerializedAs("LimitTopLeft")] [SerializeField] private Transform limitTopLeft;
 	[FormerlySerializedAs("LimitBottomRight")] [SerializeField] private Transform limitBottomRight;
 
-	public Vector3 targetPos = Vector3.zero;
-	public Vector3 prevTargetPos = Vector3.zero;
+	public Vector3 targetPosS = Vector3.zero;
+	public Vector3 prevTargetPosS = Vector3.zero;
 
-	private float timePom = 0;
+	private float timePomM = 0;
 
-	private bool bMove = false;
-	private bool bUnisten = false;
+	private bool bMoveE = false;
+	private bool bUnistenN = false;
 
-	private AudioSource mosquitoSound;
+	private AudioSource mosquitoSoundD;
 	
-	public static int ActiveSoundsCount;
+	public static int ActiveSoundsCountT;
 	
-	private bool bSoundActive = false;
-	private readonly int maxActiveSounds = 4;
+	private bool bSoundActiveE = false;
+	private readonly int maxActiveSoundsS = 4;
 
 	private void Awake () 
 	{
-		bMove = false;
+		bMoveE = false;
 	}
 	
 	private IEnumerator Start()
 	{
-		 
-		mosquitoSound = transform.GetComponent<AudioSource>();
-		if(SoundManager.SoundOn ==1 && ActiveSoundsCount<maxActiveSounds)
+		mosquitoSoundD = transform.GetComponent<AudioSource>();
+		if(SoundManagerBS.SoundOnN ==1 && ActiveSoundsCountT<maxActiveSoundsS)
 		{
-			ActiveSoundsCount++;
-			bSoundActive = true;
-			mosquitoSound.Play((ulong) Random.Range(0,50000));
-			mosquitoSound.pitch = Random.Range(.95f,1.5f);
+			ActiveSoundsCountT++;
+			bSoundActiveE = true;
+			mosquitoSoundD.Play((ulong) Random.Range(0,50000));
+			mosquitoSoundD.pitch = Random.Range(.95f,1.5f);
 		}
 
 
@@ -53,55 +52,55 @@ public class MosquitoMove : MonoBehaviour {
 		else
 			transform.position =   new Vector3(limitBottomRight.position.x + Random.Range(2f,3f), Random.Range(limitBottomRight.position.y, limitTopLeft.position.y),0);
  
-		StartCoroutine( nameof(SetTargetPos));
-		bMove = true;
+		StartCoroutine( nameof(SetTargetPosS));
+		bMoveE = true;
 	}
 
-	private IEnumerator SetTargetPos()
+	private IEnumerator SetTargetPosS()
 	{
 		yield return new WaitForEndOfFrame();
-		prevTargetPos = transform.position;
-		targetPos = new Vector3(Random.Range(limitBottomRight.position.x, limitTopLeft.position.x), Random.Range(limitBottomRight.position.y, limitTopLeft.position.y));
+		prevTargetPosS = transform.position;
+		targetPosS = new Vector3(Random.Range(limitBottomRight.position.x, limitTopLeft.position.x), Random.Range(limitBottomRight.position.y, limitTopLeft.position.y));
 		
-		if(SoundManager.SoundOn ==1 &&   !bSoundActive && ActiveSoundsCount<maxActiveSounds)
+		if(SoundManagerBS.SoundOnN ==1 &&   !bSoundActiveE && ActiveSoundsCountT<maxActiveSoundsS)
 		{
-			ActiveSoundsCount++;
-			bSoundActive = true;
-			mosquitoSound.Play( (ulong) Random.Range(0,50000) );
-			mosquitoSound.pitch = Random.Range(.95f,1.5f);
+			ActiveSoundsCountT++;
+			bSoundActiveE = true;
+			mosquitoSoundD.Play( (ulong) Random.Range(0,50000) );
+			mosquitoSoundD.pitch = Random.Range(.95f,1.5f);
 		}
 	}
 	
 	private void Update () 
 	{
-		if(bMove)	
+		if(bMoveE)	
 		{
-			timePom +=Time.deltaTime*speed;
+			timePomM +=Time.deltaTime*speedD;
 		
-			transform.position = Vector3.Lerp(prevTargetPos,targetPos, timePom);
+			transform.position = Vector3.Lerp(prevTargetPosS,targetPosS, timePomM);
 		
-			if(timePom>1) 
+			if(timePomM>1) 
 			{
-				speed = Random.Range(.1f,.3f);
-				timePom = 0;
-				StartCoroutine( nameof(SetTargetPos));
+				speedD = Random.Range(.1f,.3f);
+				timePomM = 0;
+				StartCoroutine( nameof(SetTargetPosS));
 			}
 		}
 	}
 
-	public void Smack()
+	public void SmackK()
 	{
-		if(!bUnisten)
+		if(!bUnistenN)
 		{
-			bUnisten= true;
+			bUnistenN= true;
 			transform.GetChild(0).gameObject.SetActive(false);
 			transform.GetChild(1).gameObject.SetActive(true);
 			Camera.main.SendMessage("NextPhase", "MosquitoHit", SendMessageOptions.DontRequireReceiver);
 
-			if(	bSoundActive)
+			if(	bSoundActiveE)
 			{
-				mosquitoSound.Stop();
-				ActiveSoundsCount--;
+				mosquitoSoundD.Stop();
+				ActiveSoundsCountT--;
 			}
 
 			Destroy(gameObject,1);

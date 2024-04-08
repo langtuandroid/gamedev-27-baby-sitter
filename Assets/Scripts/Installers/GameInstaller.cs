@@ -13,7 +13,7 @@ namespace Installers
             var soundManager = Instantiate(soundManagerPrefab);
             DontDestroyOnLoad(soundManager);
 
-            Container.Bind<SoundManager>().FromComponentOn(soundManager).AsSingle().NonLazy();
+            Container.Bind<SoundManagerBS>().FromComponentOn(soundManager).AsSingle().NonLazy();
         }
     }
 }

@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class BubblesListHolder : MonoBehaviour {
 
-	public List< Animator> bubblesAnim= new  List<Animator>();
+	[FormerlySerializedAs("bubblesAnim")] public List< Animator> bubblesAnimM= new  List<Animator>();
 
 	public void WashBubbles()
 	{
-		for (int j = bubblesAnim.Count-1; j >=0; j--) 
+		for (int j = bubblesAnimM.Count-1; j >=0; j--) 
 		{
-			bubblesAnim[j].SetTrigger("tHide");
-			Destroy(bubblesAnim[j].gameObject,2f);
+			bubblesAnimM[j].SetTrigger("tHide");
+			Destroy(bubblesAnimM[j].gameObject,2f);
 		}	 
-		bubblesAnim.Clear();
+		bubblesAnimM.Clear();
 	}
 }
