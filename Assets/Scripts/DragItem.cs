@@ -103,45 +103,8 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		{
 			StartCoroutine(nameof(MoveBack) );
 		}
-		 
-			
-//			if( toolType == ToolType.soap  )
-//			{
-//				AnimationChild.SetTrigger("tUpDownClean");  
-//				//if( SoundManager.Instance!=null )  SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.SoapSound);
-//			}
-		 
-		 
-		
-	}
-	
-/*	
-	void ToolCleaningFinished()
-	{
-		if(!bIskoriscen)
-		{
-//			string gamePhaseState = "";
-//			if(toolType == ToolType.soap) gamePhaseState = "Soap";
-//			else if(toolType == ToolType.shampoo) gamePhaseState = "Shampoo";
-//			else if(toolType == ToolType.bathtub_plug) gamePhaseState = "BathtubPlug";
-//			else if(toolType == ToolType.towel) gamePhaseState = "Towel";
-//			
-//			Camera.main.SendMessage("NextPhase", gamePhaseState, SendMessageOptions.DontRequireReceiver);
-			
-		 
-			bIskoriscen = true;
-			bDrag = false;
- 
-			if(!bMovingBack)
-			{
-				StopAllCoroutines();
-				StartMoveBack();
-			}
-			
-		}
-	}
 
-*/
+	}
 
 	private IEnumerator SnapToTarget( Transform target)
 	{
@@ -190,7 +153,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			while  (dist  >0.2f && dist <20 )
 			{
 				yield return new WaitForFixedUpdate();
-				//Debug.Log (dist) ;
+		
 				pos = transform.position;
 				dX  = (pos.x - startX);
 				
@@ -316,7 +279,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	public void OnBeginDrag (PointerEventData eventData)
 	{
 		if(   bIsKoriScene ) return;
-		//Debug.Log("!!" + transform.name);
+	
 		if(bMovingBack) return;
 
 		if(topMovementLimit == null) topMovementLimit = GameObject.Find("TopMovementLimit");
@@ -332,10 +295,6 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		
 		if(  !bIsKoriScene   && !bDrag  )
 		{
-		 
-			//transform.localScale = 1.4f*Vector3.one;
-			//AnimationChild.transform.parent.rotation = Quaternion.Euler(0,0,0);
-			 
 			bDrag = true;
 			startPosition = transform.position;
 			diffPos =transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)   ;
@@ -405,10 +364,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			{ 
 				pom+=Time.fixedDeltaTime*2;
 				transform.position = Vector3.Lerp(positionS, startPosition,pom);
-				 
-				//	if(transform.localScale.x >  1) transform.localScale =  (1.4f -  pom)*Vector3.one;
-				//	else transform.localScale =  Vector3.one;
-				 
+
 				yield return new WaitForFixedUpdate( );
 			}
 			
@@ -421,9 +377,6 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			bMovingBack = false;
 			if(bIsKoriScene) 
 			{
-				
-				//transform.FindChild("Finished").GetComponent<Image>().enabled = true;
-				//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.CleaningFinished);
 			}
 		}
  

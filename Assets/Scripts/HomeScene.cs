@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using TemplateScripts;
-using UnityEngine.Serialization;
-
 
 public class HomeScene : MonoBehaviour {
 	
@@ -107,8 +105,4 @@ public class HomeScene : MonoBehaviour {
 		BlockClicks.Instance.SetBlockAll(true);
 		 
 	}
-
-	//********************************************
-
- 
 }

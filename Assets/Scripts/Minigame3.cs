@@ -41,12 +41,8 @@ public class Minigame3 : MonoBehaviour {
 		BlockClicks.Instance.SetBlockAll(true);
 		BlockClicks.Instance.SetBlockAllDelay(.2f,false);
 		
-		
 		yield return new WaitForSeconds(.1f);
-
 		
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyCryingIdle();
 
@@ -67,14 +63,14 @@ public class Minigame3 : MonoBehaviour {
 		if(phaseState == "GiveToy" && !bToy)
 		{
 			bToy = true;
-			//Debug.Log("GiveToy");
+
 			phase ++;
 			CompletedAction();
 		}
 		else if(phaseState == "GivePacifier" && !bPacifier)
 		{
 			bPacifier = true;
-			//Debug.Log("GivePacifier");
+
 			phase ++;
 			babyC.BabyIdle();
 			CompletedAction();
@@ -111,7 +107,7 @@ public class Minigame3 : MonoBehaviour {
 		if(phaseState == "GiveToy" && bToy)
 		{
 			bToy = false;
-			//Debug.Log("GiveToy");
+			
 			phase --;
 			_completedActionNo-=2;
 			CompletedAction(false);
@@ -193,7 +189,7 @@ public class Minigame3 : MonoBehaviour {
 			babyC.BabySleeping();
 			psSleeping.SetActive(true);
 			if( SoundManager.Instance!=null)SoundManager.Instance.Play_Sound( SoundManager.Instance.MinigameCompleted);
-			StartCoroutine("LevelCompleted");
+			StartCoroutine(nameof(LevelCompleted));
 		}
 		else 
 		{
@@ -205,7 +201,6 @@ public class Minigame3 : MonoBehaviour {
 	
 	private IEnumerator LevelCompleted()
 	{
-		//Debug.Log("Completed");
 		GameData.BCompletedMiniGame = true;
 		psLevelCompleted.gameObject.SetActive(true);
 		yield return new WaitForEndOfFrame();
@@ -226,7 +221,6 @@ public class Minigame3 : MonoBehaviour {
 		GameData.BCompletedMiniGame = false;
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicks.Instance.SetBlockAll(true);
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 	public void ButtonNextClicked()
@@ -237,7 +231,6 @@ public class Minigame3 : MonoBehaviour {
 		if(SoundManager.Instance!=null) SoundManager.Instance.Play_ButtonClick();
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 }

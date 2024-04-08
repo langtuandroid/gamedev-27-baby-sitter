@@ -23,8 +23,7 @@ public class SelectMinigameScene : MonoBehaviour {
 	private IEnumerator Start () {
 		BlockClicks.Instance.SetBlockAll(true);
 		BlockClicks.Instance.SetBlockAllDelay(1.1f,false);
-		//GameData.SetMinigamesQueye();//brisi
- 
+
 		lastSelectedBaby = GameData.SelectedMiniGameIndex;
 
 		if(lastSelectedBaby >-1)
@@ -35,29 +34,20 @@ public class SelectMinigameScene : MonoBehaviour {
 
 			if(GameData.TestFinishedAndChangeMiniGamesQueue())
 			{
-	//			Debug.Log("ZAMENJENO");
-	 			//animacija zamene
 			}
- 
-			//yield return new WaitForSeconds(.2f);
+			
 			   
 			if(GameData.BCompletedMiniGame)
 			{
 			 	GameData.ChangeBaby();
 			}
-
-//			if(GameData.bCompletedMinigame)
-				Invoke(nameof(ShowLastBabyMiniGame), 0);//Random.Range(3,5)); //kasnjenje pojavljivanja dugmeta 
-//			else
-//				Invoke("ShowLastBabyMinigame", 0);//Random.Range(1,3));
+			
+			Invoke(nameof(ShowLastBabyMiniGame), 0);
 		}
 		 
 		for(int i = 0; i<3; i++)
 		{
 			minigameIcons[i].sprite=   spritesMinigames[GameData.ActiveMiniGames[i]];
-
-			//podesavanje izgleda bebica
-//			Debug.Log(i + "   ,   " + GameData.activeMinigames[i]);
 			babies[i].SelectMinigame_SetBaby(  GameData.BabiesMg[i], GameData.ActiveMiniGames[i]);
 			 
 		}
@@ -94,7 +84,6 @@ public class SelectMinigameScene : MonoBehaviour {
 		int smg = GameData.SelectMiniGame(babyNo);
 
 		GameData.BCompletedMiniGame = false;
-//		Debug.Log( "Odabrana mini igra: "+ smg );
 
 		string minigameName = "Minigame " + (smg+1).ToString();
 

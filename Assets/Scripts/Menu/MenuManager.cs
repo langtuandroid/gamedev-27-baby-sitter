@@ -58,21 +58,21 @@ public class MenuManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		if(PlayerPrefs.HasKey("alreadyRated"))
 		{
-			Rate.alreadyRated = PlayerPrefs.GetInt("alreadyRated");
+			Rate.AlreadyRated = PlayerPrefs.GetInt("alreadyRated");
 		}
 		else
 		{
-			Rate.alreadyRated = 0;
+			Rate.AlreadyRated = 0;
 		}
 
-		Rate.appStartedNumber = PlayerPrefs.GetInt("appStartedNumber",0);
+		Rate.AppStartedNumber = PlayerPrefs.GetInt("appStartedNumber",0);
 
 		if(_bFirstLoadMainScene)
 		{
-			if(Rate.alreadyRated==0 && Rate.appStartedNumber>=6 )
+			if(Rate.AlreadyRated==0 && Rate.AppStartedNumber>=6 )
 			{
-				Rate.appStartedNumber=0;
-				PlayerPrefs.SetInt("appStartedNumber",Rate.appStartedNumber);
+				Rate.AppStartedNumber=0;
+				PlayerPrefs.SetInt("appStartedNumber",Rate.AppStartedNumber);
 				PlayerPrefs.Save();
 
 				ShowPopUpMenu(ratePopUp);

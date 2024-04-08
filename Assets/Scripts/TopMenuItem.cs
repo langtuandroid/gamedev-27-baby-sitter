@@ -74,7 +74,6 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 
 	public void Unlock()
 	{
-		//Debug.Log("OTKLJUCAVANJE ITEMA");
 		MenuItems.mitd[transform.name].Locked = false;
 		bLocked = false;
 		transform.GetChild(1).gameObject.SetActive(false);
@@ -161,36 +160,17 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 	{
 
 	}
-	
-	public void  OnEndDrag(PointerEventData eventData)
+
+	public void OnEndDrag(PointerEventData eventData)
 	{
 		//return;
-		if(  !bEnableDrag || bLocked) return;
-		if(  bDrag &&   !bSnapToTarget ) 
+		if (!bEnableDrag || bLocked) return;
+		if (bDrag && !bSnapToTarget)
 		{
-			StartCoroutine("TestEndDrag" );
-			//CancelInvoke("TestDistance");
+			StartCoroutine(nameof(TestEndDrag));
 		}
 	}
-	
-	
-	/*
-	void TestDistance()
-	{
-		for(int i= 0;i<TargetPoint.Length; i++)
-		{
-			Debug.Log(i+". :  "+ActiveItem.position+ "   " + TargetPoint[i].position);
-			if(Vector2.Distance(ActiveItem.position,TargetPoint[i].position)<SnapDistance)
-			{
-				StartCoroutine("SnapToTarget");
-				bDrag = false;
-				targetPointIndex = i;
-				break;
-			}	
-		}
-	}
-	*/
- 
+
 	private IEnumerator SnapToTarget()
 	{
 		if(!bSnapToTarget  ) 
@@ -198,10 +178,7 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 			bSnapToTarget = true;
 		 
 			bDrag = false;
-			 
-			
-			//CancelInvoke("TestDistance");
-			
+
 			float timeMove = 0;
  
 			Vector3 endPos = targetPoint[targetPointIndex].position ;
@@ -214,9 +191,6 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 				timeMove += Time.fixedDeltaTime;
  
 			}
- 
-			//if(SoundManager.Instance!=null) SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.Needle);
-		 
 		}
 		yield return new WaitForFixedUpdate();
 	}
@@ -229,10 +203,8 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 
 		if(!bSnapToTarget )
 		{
-			//item je dalje pa se prebacuje na zeljenu poziciju
-		//	Debug.Log(DisposeItemDistance+ " ... Dist  :  "+(StartPosition.y - ActiveItem.position.y));
 			if( (bUseSnapDistance && ( Vector2.Distance((activeItem.position + testPointOffset),targetPoint[0].position) < snapDistance  )) 
-			   || ( !bUseSnapDistance && (startPosition.y - activeItem.position.y) > disposeItemDistance ))
+			    || ( !bUseSnapDistance && (startPosition.y - activeItem.position.y) > disposeItemDistance ))
 			{
 				bSnapToTarget = true;
 				bDrag = false;
@@ -244,7 +216,7 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 				for(int i= 0;i<targetPoint.Length; i++)
 				{
 					distance2 = Vector2.Distance(activeItem.position,targetPoint[i].position);
-					if(distance2 < distance )//&& TargetPoint[i].childCount==0)
+					if(distance2 < distance )
 					{
 						closestPoint = i;
 						distance = distance2;
@@ -263,7 +235,7 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 				}
 
 				float timeMove = 0;
-//				Debug.Log ("***CP " + TargetPoint[closestPoint].name);
+				
 				Vector3 endPos= targetPoint[closestPoint].position;
 				while  (timeMove  <1 )
 				{
@@ -291,8 +263,7 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 				int cc=targetPoint[closestPoint].childCount;
 				for(int j = 0; j < cc; j++)  { GameObject.Destroy( targetPoint[closestPoint].GetChild(j).gameObject ); }
 
-				activeItem.SetParent(targetPoint[closestPoint]);
-//				Debug.Log(transform.parent.name);
+				activeItem.SetParent(targetPoint[closestPoint]); ;
 				 
 				if( Application.loadedLevelName == "Minigame 1"     )  
 				{
@@ -322,21 +293,16 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 					if( Minigame4.CompletedActionNo == 1 ) Camera.main.SendMessage("CompletedAction");
 					if(  SoundManager.Instance!=null)  	SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.ButtonClick2);
 				}
-				 
-
-			//	if(SoundManager.Instance!=null) SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.Needle);
-
 
 			}
 			else
 			{
-
 				if(bChangeIconSpriteOnDrag && emptyIconSprite!=null)
 				{
 					transform.GetChild(0).GetComponent<Image>() .sprite  =  activeItem.GetComponent<Image>().sprite; 
 					bSelectable = true;
 				}
-				//item se brise
+
 				CanvasGroup cg= activeItem.GetComponent<CanvasGroup>();
 				while(cg.alpha >0.05f)
 				{
@@ -381,15 +347,14 @@ public class TopMenuItem : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEnd
 		}
 	}
 	
-	void OnApplicationFocus( bool hasFocus )
+	private void OnApplicationFocus( bool hasFocus )
 	{
 		if(  !appFocus && hasFocus )
 		{
 			if(!bSnapToTarget &&  bDrag )
 			{
-				 
 				StopAllCoroutines();
-				StartCoroutine("TestEndDrag" );
+				StartCoroutine(nameof(TestEndDrag) );
 			}
 		}
 		appFocus = hasFocus;

@@ -72,8 +72,6 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 		parentOld = transform.parent;
 		
 		bIsKoriScene = false;
-		
-		
 	}
 	
 	private void Update()
@@ -130,12 +128,9 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 	{ 
 		if(spoonTestPoint == SpoonTestPoint.Bowl)
 		{
-		 
-
 			if( Vector2.Distance(testPoint.position,targetPoint[0].position) < testDistance)
 		   	{
-	 
-				spoonTestPoint  = SpoonTestPoint.Mouth;
+			    spoonTestPoint  = SpoonTestPoint.Mouth;
 				foodSpoon.enabled = true;
 
 				foodBowl.position = Vector3.Lerp(foodBowlStartPos.position,foodBowlEndPos.position,(feedCount+1)/5f);
@@ -151,9 +146,7 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 				foodSpoon.enabled = false;
 				feedCount++;
 				spoonTestPoint = SpoonTestPoint.Bowl;
-			//	if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.BabyChew);//StopAndPlay_Sound
-
-
+				
 				if(cleanWithTissue!=null) cleanWithTissue.color = new Color(1,1,1, .2f*feedCount);
 				babyC.BabyEat();
 				if(feedCount == 5)
@@ -162,8 +155,6 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 					bFixAnimationMove = true;
 					Camera.main.SendMessage("NextPhase", "FeedBaby", SendMessageOptions.DontRequireReceiver);
 				}
-
-				//if( SoundManager.Instance!=null )  SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.SoapSound);
 			}
 		}
 	}
@@ -187,8 +178,6 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 		{
 			bDrag = true;
 			startPosition = transform.position;
-			//diffPos =transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)   ;
-		//	diffPos = new Vector3(diffPos.x,diffPos.y,0);
 			dragItemParent.position = transform.parent.position;
 			transform.SetParent(dragItemParent);
 			
@@ -213,11 +202,6 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 				bMixingFoodStarted = true;
 				timeNotMove = 0;
 			}
-//			else
-//			{
-//				bMixingFoodStarted = false;
-//				if( SoundManager.Instance!=null)  SoundManager.Instance.Stop_Sound( SoundManager.Instance.MixingFood);
-//			}
 		}
 	}
 	
@@ -229,7 +213,7 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 			bMixingFoodStarted = false;
 			if( SoundManager.Instance!=null)  SoundManager.Instance.Stop_Sound( SoundManager.Instance.MixingFood);
 			bDrag = false;
-			StartCoroutine("MoveBack" );
+			StartCoroutine(nameof(MoveBack) );
 		}
 	}
 	
@@ -258,9 +242,6 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 			bMovingBack = false;
 			if(bIsKoriScene) 
 			{
-				
-				//transform.FindChild("Finished").GetComponent<Image>().enabled = true;
-				//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.CleaningFinished);
 			}
 		}
 		
@@ -291,8 +272,7 @@ public class Spoon : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHa
 	}
  
 		
- 
-
+	
 	enum SpoonTestPoint
 	{
 		Bowl,

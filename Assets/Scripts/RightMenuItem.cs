@@ -56,8 +56,6 @@ public class RightMenuItem : MonoBehaviour ,  IBeginDragHandler, IDragHandler, I
 	private void Start () {
 		startPosition = prefabDragItem.transform.localPosition;
 		startParent = prefabDragItem.transform.parent;
-	//	cg = prefabDragItem.GetComponent<CanvasGroup>();
-	 
 	}
 	
 	private void Update () 
@@ -143,8 +141,6 @@ public class RightMenuItem : MonoBehaviour ,  IBeginDragHandler, IDragHandler, I
 			else
 			{
 				progress+=.1f;
-				//Debug.Log("PROG "+progres);
-
 
 				if(progress < 3)
 				{
@@ -257,7 +253,6 @@ public class RightMenuItem : MonoBehaviour ,  IBeginDragHandler, IDragHandler, I
  
 		}
 
-		//Debug.Log(bSnaping);
 		if(bSnapping )
 		{
 			bSelectable = false; 

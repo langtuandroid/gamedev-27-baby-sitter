@@ -109,12 +109,11 @@ public class MenuItems   {
 
 	public static void UnlockAll()
 	{
-		//Debug.Log("ALL ITEMS ARE UNLOCKED");
-			foreach(KeyValuePair<string,MenuItemData>  kvp in mitd)
-			{
-				kvp.Value.Locked = false;
-			}
-		 
+		foreach(KeyValuePair<string,MenuItemData>  kvp in mitd)
+		{
+			kvp.Value.Locked = false;
+		}
+		
 	}
 
 
@@ -150,11 +149,9 @@ public class MenuItems   {
 			}
 			spriteList.Add(mitd[test].Name);
 		}
-
-	 //-----------------------------
+		
 		foreach(string atlas in atlasList)
 		{
-			//Debug.Log( "^" );
 			foreach( Sprite spr in Resources.LoadAll<Sprite>("MenuItems/"+atlas))
 			{
 				for(int j = 0; j<images_length; j++)
@@ -166,54 +163,8 @@ public class MenuItems   {
 				}
 			}
 		}
-		 
-	//-----------------------
 	}
- 
-
-	/*
-	public static string ReturnDollImage()
-	{
-		string ret = "";
-		switch(DailyRewards.nagrada)
-		{
-		case 1:
-			ret = "M01_01";
-			break;
-		case 2:
-			ret = "M01_02";
-			break;
-		case 3:
-			ret = "M01_03";
-			break;
-		case 4:
-			ret = "M01_04";
-			break;
-		case 5:
-			ret = "M01_05";
-			break;
-		case 6:
-			ret = "M01_06";
-			break;
-	 
-
-		}
-
-
-		if(mitd.Count >0)
-		{
-			mitd["M01_02"].Locked = (DailyRewards.nagrada <2);
-			mitd["M01_03"].Locked = (DailyRewards.nagrada <3);
-			mitd["M01_04"].Locked = (DailyRewards.nagrada <4);
-			mitd["M01_05"].Locked = (DailyRewards.nagrada <5);
-			mitd["M01_06"].Locked = (DailyRewards.nagrada <6);
-		 
-		}
-		return ret;
-	}
-
-	 */
- 
+	
 	 
 }
 

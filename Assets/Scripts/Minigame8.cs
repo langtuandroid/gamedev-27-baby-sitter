@@ -1,51 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TemplateScripts;
+using UnityEngine.Serialization;
 
 public class Minigame8 : MonoBehaviour {
 
-	public TopMenu topMenu;
-	public ProgressBar progressBar;
-	public static int CompletedActionNo = 0;
-	public GameObject ButtonNext;
-	public GameObject ButtonHome;
+	[SerializeField] private TopMenu topMenu;
+	[SerializeField] private ProgressBar progressBar;
 	
-	public Animator animGramophone;
-	public GameObject psGramophone1;
-	public GameObject psGramophone2;
+	private static int _completedActionNo = 0;
+	
+	[FormerlySerializedAs("ButtonNext")] [SerializeField] private GameObject buttonNext;
+	[FormerlySerializedAs("ButtonHome")] [SerializeField] private GameObject buttonHome;
+	
+	[SerializeField] private Animator animGramophone;
+	[SerializeField] private GameObject psGramophone1;
+	[SerializeField] private GameObject psGramophone2;
+	
 	private string playingRecord = "";
  
-	int phase = 0;
-	int  PlayingRecordNo = 0;
-	float recordPlayingTime = 0;
-	bool bLamp;
+	private int phase = 0;
+	private int playingRecordNo = 0;
+	private float recordPlayingTime = 0;
+	private bool bLamp;
 
-	public AudioSource[] RecordsSounds;
-	public AudioSource[] InstrumentsSounds;
+	[FormerlySerializedAs("RecordsSounds")] [SerializeField] private AudioSource[] recordsSounds;
+	[FormerlySerializedAs("InstrumentsSounds")] [SerializeField] private AudioSource[] instrumentsSounds;
 
-	public BabyController babyC;
-	public GameObject psSleeping;
-	public ParticleSystem psLevelCompleted;
+	[SerializeField] private BabyController babyC;
+	[SerializeField] private GameObject psSleeping;
+	[SerializeField] private ParticleSystem psLevelCompleted;
 
-	void Awake()
+	private void Awake()
 	{
-		ButtonNext.SetActive(false);
-	 
+		buttonNext.SetActive(false);
 	}
 	
-	IEnumerator Start () 
+	private IEnumerator Start () 
 	{
 	 	topMenu.ShowTopMenu();
 		 
-		CompletedActionNo = 0;
+		_completedActionNo = 0;
 	 
 
 		 BlockClicks.Instance.SetBlockAll(true);
 		 BlockClicks.Instance.SetBlockAllDelay(.2f,false);
 		
 		yield return new WaitForSeconds(.1f);
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
+	
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyCryingIdle();
 
@@ -56,8 +58,8 @@ public class Minigame8 : MonoBehaviour {
 	}
 	
 
-	void Update () {
-		if(PlayingRecordNo>0 )
+	private void Update () {
+		if(playingRecordNo>0 )
 		{
 		   	recordPlayingTime +=Time.deltaTime;
 			if(phase == 0)
@@ -78,14 +80,14 @@ public class Minigame8 : MonoBehaviour {
 
 
 			progressBar.SetProgress(recordPlayingTime/15f ,false );
-			if(recordPlayingTime >=15  && CompletedActionNo== 0)
+			if(recordPlayingTime >=15  && _completedActionNo== 0)
 			{
 				if(!psSleeping.activeSelf)
 				{
 					babyC.BabySleeping();
 					psSleeping.SetActive(true);
 				}
-				CompletedActionNo = 1;
+				_completedActionNo = 1;
 				CompletedAction();
 			}
 		}
@@ -103,39 +105,20 @@ public class Minigame8 : MonoBehaviour {
 		if(phaseState == "LampHandle") bLamp = false;
 	 
 	}
-	
-	
-	
-//	IEnumerator WaitNextPhase( string phaseState )
-//	{
-//		Debug.Log(phaseState +"   @");
-// 
-//		yield return new WaitForEndOfFrame();
-//	}
-	
-	
-	
-	
-	
+
 	public void CompletedAction()
 	{
- 
-		if(CompletedActionNo == 1 && bLamp)
+		if(_completedActionNo == 1 && bLamp)
 		{
 			GameObject.Find("LampHandle").GetComponent<ItemAction>().bEnabled = false;
-			//if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.MinigameCompleted);
-			StartCoroutine("LevelCompleted");
+			StartCoroutine(nameof(LevelCompleted));
 		}
-		else 
-		{
-			//if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.ActionCompleted);
-		}
+	
 	}
 	
 	
-	IEnumerator LevelCompleted()
+	private IEnumerator LevelCompleted()
 	{
-		//Debug.Log("Completed");
 		GameData.BCompletedMiniGame = true;
 		psLevelCompleted.gameObject.SetActive(true);
 		yield return new WaitForEndOfFrame();
@@ -143,48 +126,48 @@ public class Minigame8 : MonoBehaviour {
 		psLevelCompleted.Play();
 		
 		yield return new WaitForSeconds(1);
-		ButtonNext.SetActive(true);
-		ButtonHome.SetActive(false);
+		buttonNext.SetActive(true);
+		buttonHome.SetActive(false);
 	}
 	
 
 
-	public void  ButtonRattleClicked()
+	public void ButtonRattleClicked()
 	{
-		CompletedActionNo = 0;
-		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound( InstrumentsSounds[0]);
+		_completedActionNo = 0;
+		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound( instrumentsSounds[0]);
 	}
 
-	public void  ButtonChymesClicked()
+	public void ButtonChymesClicked()
 	{
-		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound( InstrumentsSounds[1]);
+		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound( instrumentsSounds[1]);
 	}
 
-	public void  ButtonTriangleClicked()
+	public void ButtonTriangleClicked()
 	{
-		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound(InstrumentsSounds[2]);
+		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound(instrumentsSounds[2]);
 	}
 
 	public void StopRecord()
 	{
 		if(  SoundManager.Instance!=null)
 		{
-			switch(PlayingRecordNo)
+			switch(playingRecordNo)
 			{
 			case 1:
-				SoundManager.Instance.Stop_Sound( RecordsSounds[0]);
+				SoundManager.Instance.Stop_Sound( recordsSounds[0]);
 				break;
 			case 2:
-				SoundManager.Instance.Stop_Sound( RecordsSounds[1]);
+				SoundManager.Instance.Stop_Sound( recordsSounds[1]);
 				break;
 			case 3:
-				SoundManager.Instance.Stop_Sound( RecordsSounds[2]);
+				SoundManager.Instance.Stop_Sound( recordsSounds[2]);
 				break;
 			case 4:
-				SoundManager.Instance.Stop_Sound(RecordsSounds[3]);
+				SoundManager.Instance.Stop_Sound(recordsSounds[3]);
 				break;
 			case 5:
-				SoundManager.Instance.Stop_Sound( RecordsSounds[4]);
+				SoundManager.Instance.Stop_Sound( recordsSounds[4]);
 				break;
 			}
 		}
@@ -192,7 +175,6 @@ public class Minigame8 : MonoBehaviour {
 	public void PlayRecord(string name)
 	{
 		Tutorial.Instance.StopTutorial();
-		//Debug.Log("PLAY RECORD");
 		if(!psGramophone1.activeSelf)
 		{
 			animGramophone.Play("playMusic");
@@ -209,24 +191,24 @@ public class Minigame8 : MonoBehaviour {
 			switch(name)
 			{
 			case "M07_01":
-				SoundManager.Instance.Play_Sound( RecordsSounds[0]);
-				PlayingRecordNo = 1;
+				SoundManager.Instance.Play_Sound( recordsSounds[0]);
+				playingRecordNo = 1;
 				break;
 			case "M07_02":
-				SoundManager.Instance.Play_Sound( RecordsSounds[1]);
-				PlayingRecordNo = 2;
+				SoundManager.Instance.Play_Sound( recordsSounds[1]);
+				playingRecordNo = 2;
 				break;
 			case "M07_03":
-				SoundManager.Instance.Play_Sound(RecordsSounds[2]);
-				PlayingRecordNo = 3;
+				SoundManager.Instance.Play_Sound(recordsSounds[2]);
+				playingRecordNo = 3;
 				break;
 			case "M07_04":
-				SoundManager.Instance.Play_Sound( RecordsSounds[3]);
-				PlayingRecordNo = 4;
+				SoundManager.Instance.Play_Sound( recordsSounds[3]);
+				playingRecordNo = 4;
 				break;
 			case "M07_05":
-				SoundManager.Instance.Play_Sound( RecordsSounds[4]);
-				PlayingRecordNo = 5;
+				SoundManager.Instance.Play_Sound( recordsSounds[4]);
+				playingRecordNo = 5;
 				break;
 			}
 
@@ -250,9 +232,9 @@ public class Minigame8 : MonoBehaviour {
 		//Implementation.Instance.ShowInterstitial();
 	}
 
-	public void  ButtonNextClicked()
+	public void ButtonNextClicked()
 	{
-		CompletedActionNo = 0;
+		_completedActionNo = 0;
 		psGramophone1.GetComponent<ParticleSystem>().enableEmission = false;
 		psGramophone2.GetComponent<ParticleSystem>().enableEmission = false;
 		psSleeping.GetComponent<ParticleSystem>().enableEmission = false;

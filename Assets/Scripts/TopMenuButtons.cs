@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using TemplateScripts;
 
 public class TopMenuButtons : MonoBehaviour {
@@ -53,9 +52,6 @@ public class TopMenuButtons : MonoBehaviour {
 	public void MenuChanged()
 	{
 		speed =  .35f*  content.rect.width / (1+ (content.rect.width  - scrollRect.GetComponent<RectTransform>().rect.width ) )   ;
-
-		//speed =  0.01f*  (content.rect.width  - scrollRect.GetComponent<RectTransform>().rect.width  ) * scrollRect.GetComponent<RectTransform>().rect.width  / content.rect.width  ;
-//		Debug.Log(content.rect.width  +   "           " + scrollRect.GetComponent<RectTransform>().rect.width );
 	}
 
 

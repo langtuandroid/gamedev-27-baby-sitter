@@ -51,11 +51,6 @@ public class DirtyClothes : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEn
 			y = Input.mousePosition.y;
 			
 			Vector3 posM = Camera.main.ScreenToWorldPoint(new Vector3(x ,y,10.0f) );
-//			if(posM.x<-2.5f  ) posM = new Vector3(-2.5f,posM.y,posM.z);
-//			else if(posM.x>2.5f  ) posM = new Vector3(2.5f,posM.y,posM.z);
-//			
-//			if(posM.y<-5.5f  ) posM = new Vector3(posM.x,-5.5f, posM.z);
-//			else if(posM.y>2.2f) posM = new Vector3(posM.x,2.2f,posM.z);
 
 			if(testTopMovementLimit!=null && topMovementLimit!=null)
 			{
@@ -85,9 +80,8 @@ public class DirtyClothes : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEn
  
 		transform.SetParent(activeItemHolder);
 		InvokeRepeating(nameof(TestDistance),0, .1f);
-		if(flower != null) //pelena
+		if(flower != null) 
 		{
-			//prikazivanje cvetica
 			StartCoroutine(nameof(ShowFlower));
 		}
 		if(  SoundManager.Instance!=null)  	SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.ButtonClick2);
@@ -174,10 +168,8 @@ public class DirtyClothes : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEn
 			CancelInvoke(nameof(TestDistance));
 		 
 			float timeMove = 0;
-		 
-			//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.ElementCompleted);
-			
- 			TargetPoint.parent.GetComponent<Animator>().Play("Basket",-1,0);
+
+			TargetPoint.parent.GetComponent<Animator>().Play("Basket",-1,0);
 			if(  SoundManager.Instance!=null)  	SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.ButtonClick2);
 			while  (timeMove  <1 )
 			{
@@ -186,24 +178,11 @@ public class DirtyClothes : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEn
  
 				transform.localScale  = Vector3.Lerp(transform.localScale, Vector3.zero,timeMove);
 				timeMove += Time.fixedDeltaTime;
-				//if( hospital.bModelMan && snapScale !=1)  transform.localScale =  startScale * (1+  timeMove * (snapScale-1));
-				
+
 			}
-			
 
-
-			//if(SoundManager.Instance!=null) SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.Needle);
 			Camera.main.SendMessage("DirtyClothesInBasket",dirtyItemNo);
 			GameObject.Destroy(gameObject,.5f);
-		
-		//		Gameplay.Instance.ChangeProgressBar();
-		//		
-		//		Tutorial.bPause = true;
-		//		Tutorial.timeLeftToShowHelp = 10000;
-		//		Tutorial.ShowHelpPeriod = 10000;
-		//		
-		//		if( Application.loadedLevelName == "LevelGame3" ) Camera.main.SendMessage("NextPhase", SendMessageOptions.DontRequireReceiver);
-		//		else 	bEnableDrag = true;
 		}
 		yield return new WaitForFixedUpdate();
 	}
@@ -243,7 +222,7 @@ public class DirtyClothes : MonoBehaviour,  IBeginDragHandler, IDragHandler, IEn
 			
 			transform.SetParent(startParent);
 			transform.position = startPosition;
-			//transform.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+			
 			if((Application.loadedLevelName == "Minigame 1" &&  dirtyItemNo == 1) || Application.loadedLevelName == "Minigame 4"   ) StartCoroutine(nameof(HideFlower));
 		}
  

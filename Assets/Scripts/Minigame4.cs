@@ -37,8 +37,6 @@ public class Minigame4 : MonoBehaviour {
 	}
 	
 	private IEnumerator Start () {
-		
-		//topMenu.SetMenuItems(1);
 		CompletedActionNo = 0;
 		
 		
@@ -46,12 +44,9 @@ public class Minigame4 : MonoBehaviour {
 		BlockClicks.Instance.SetBlockAllDelay(.2f,false);
 
 		animBasket.Play("ShowRightMenu");
-
-		//animRightMenu.Play("ShowRightMenu");
+		
 		yield return new WaitForSeconds(.1f);
- 
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
+
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyCryingIdle();
 
@@ -147,18 +142,10 @@ public class Minigame4 : MonoBehaviour {
 
 			StartCoroutine(nameof(HideCreamSpots));
 			CompletedAction();
-			//babyC.BabySmile();
 
 			babyC.BabyWaitToBrushTeeth();
 		}
-
-//		else if(phaseState == "GivePacifier" && !bPacifier)
-//		{
-//			bPacifier = true;
-//			//Debug.Log("GivePacifier");
-//			phase ++;
-//			CompletedAction();
-//		}
+		
 		yield return new WaitForEndOfFrame();
 	}
 
@@ -226,7 +213,6 @@ public class Minigame4 : MonoBehaviour {
 	
 	private IEnumerator LevelCompleted()
 	{
-		//Debug.Log("Completed");
 		GameData.BCompletedMiniGame = true;
 		psLevelCompleted.gameObject.SetActive(true);
 		yield return new WaitForEndOfFrame();
@@ -249,7 +235,6 @@ public class Minigame4 : MonoBehaviour {
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		
 		BlockClicks.Instance.SetBlockAll(true);
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 	public void  ButtonNextClicked()
@@ -259,7 +244,6 @@ public class Minigame4 : MonoBehaviour {
 		if(SoundManager.Instance!=null) SoundManager.Instance.Play_ButtonClick();
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 }

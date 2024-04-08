@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TemplateScripts;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
- 
+
 public class LevelTransition : MonoBehaviour {
 	
 	[SerializeField] private Animator anim;
@@ -68,7 +66,6 @@ public class LevelTransition : MonoBehaviour {
 		anim.gameObject.SetActive(true);
 		StartCoroutine(nameof(LoadScene) , levelName);
 		
-		// if(anim == null) anim = GameObject.Find("TransitionImage").GetComponent<Animator>();
 		if(anim != null)  anim.SetBool("bClose",true);
 
 	}

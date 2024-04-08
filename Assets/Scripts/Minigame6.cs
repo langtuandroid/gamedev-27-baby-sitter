@@ -96,8 +96,7 @@ public class Minigame6 : MonoBehaviour {
 		toysShelf[0].transform.parent.localPosition = Vector3.zero;
 		toysShelf[1].transform.parent.localPosition = Vector3.zero;
 		toysShelf[2].transform.parent.localPosition = Vector3.zero;
-
-		//topMenu.SetMenuItems(1);
+		
 		_completedActionNo = 0;
 		
 		
@@ -106,10 +105,6 @@ public class Minigame6 : MonoBehaviour {
 		
 		yield return new WaitForSeconds(1);
 		LevelTransition.Instance.ShowScene();
-		
-		
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
 
 		Tutorial.Instance.tutStartPos[0].position = toys[5].transform.position + new Vector3(0,0.2f,0);
 

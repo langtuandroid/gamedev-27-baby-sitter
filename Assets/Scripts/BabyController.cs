@@ -179,7 +179,7 @@ public class BabyController : MonoBehaviour {
 		anim.SetBool("bCrying",true);
 		anim.SetTrigger("tCryOpenMouth");
 		CancelInvoke();
-		Invoke("BabyCryOpenMouth", Random.Range(4.5f,12f));
+		Invoke(nameof(BabyCryOpenMouth), Random.Range(4.5f,12f));
 
 		if( SoundManager.Instance!=null) SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.BabyCry,.1f); 
 	}
@@ -243,9 +243,7 @@ public class BabyController : MonoBehaviour {
 	
 	public void BabyBrushTeeth(bool bBrushingTeeth)
 	{
-		 
 		anim.SetBool("bBrushingTeeth",bBrushingTeeth);
-		
 	}
 
 

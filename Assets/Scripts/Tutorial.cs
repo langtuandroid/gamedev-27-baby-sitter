@@ -146,7 +146,7 @@ public class Tutorial : MonoBehaviour {
 		yield return new WaitForSeconds(.2f);
 		bActive = false;
 		lastTutorial = "TapOnPosition";
-		InvokeRepeating("RepeatTutorial",.5f,.5f);
+		InvokeRepeating(nameof(RepeatTutorial),.5f,.5f);
 	}
 
 
@@ -215,8 +215,7 @@ public class Tutorial : MonoBehaviour {
 		}
 
  		yield return new WaitForSeconds(.3f);
-//		animTutorial.CrossFade("pointerUp",.05f);
-//		yield return new WaitForSeconds(1f);
+
 		HidePointer();
 		yield return new WaitForSeconds(.2f);
 		bActive = false;
@@ -232,7 +231,7 @@ public class Tutorial : MonoBehaviour {
 		{
 			leftTimeToRepeat+=0.5f;
 		}
-		 else
+		else
 		{
 			leftTimeToRepeat = 0;
 			if(lastTutorial == "MoveToPosition") ShowPointerAndMoveToPosition(phase);
@@ -265,44 +264,45 @@ public class Tutorial : MonoBehaviour {
 		if(Application.loadedLevelName == "Minigame 1")
 		{
 			float dly = 2;
-			//Debug.Log("TUT: " + _phase);
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
 			else if(_phase == 1)    ShowPointerAndMoveToPosition(1,dly);
-			//prikaz prvi meni da se prevuce pelena
+			
 			else if(_phase == 2)   ShowPointerAndMoveToPosition(2,dly);
-			//promenjen meni, tapnuti na prvo dugme
+			
 			else if(_phase == 3)   ShowPointerAndTapOnPosition(3,dly);
-			//promenjen meni, tapnuti na drugo dugme
+			
 			else if(_phase == 4)   ShowPointerAndTapOnPosition(4,dly);
-			//prikaz drugi meni da se prevuce
+			
 			else if(_phase == 5)   ShowPointerAndMoveToPosition(5,dly);
-			//promenjen meni, tapnuti na trece dugme
+			
 			else if(_phase == 6)   ShowPointerAndTapOnPosition(6,dly);
-			//treba da se prevuku cipelice
+		
 			else if(_phase == 7)   ShowPointerAndMoveToPosition(7,dly);
-			//promenjen meni, tapnuti na trece dugme
+			
 			else if(_phase == 8)   ShowPointerAndTapOnPosition(8,dly);
-			//treba da se prevuku cipelice
+		
 			else if(_phase == 9)   ShowPointerAndMoveToPosition(9,dly);
 		}
 
 		else if(Application.loadedLevelName == "Minigame 2")
 		{
-			//TUSIRANJE
 			if(_phase == 0)   ShowPointerAndTapOnPosition(0);
-			//IGRACKE
+			
 			else if(_phase == 1)   ShowPointerAndMoveToPosition(1);
-			//SAPUN
+			
 			else if(_phase == 2)   ShowPointerAndMoveRepeating(2 , GameObject.Find("TP2FS").transform.position,1);
-			//SAMPON
+			
 			else if(_phase == 3)   ShowPointerAndMoveToPosition( 3 );
+			
 			else if(_phase == 4)   ShowPointerAndMoveRepeating( 4 ,1);
-			//TUSIRANJE
+		
 			else if(_phase == 5)   ShowPointerAndTapOnPosition( 5 );
+			
 			else if(_phase == 6)   ShowPointerAndTapOnPosition( 6, 2 );
-			//ISPUSTANJE VODE
+			
 			else if(_phase == 7)   ShowPointerAndMoveToPosition(7, 2);
-			//BRISANJE PESKIROM
+			
 			else if(_phase == 8)   ShowPointerAndMoveRepeating(8 , GameObject.Find("TP8FS").transform.position,1);
 		 
 		}
@@ -310,15 +310,15 @@ public class Tutorial : MonoBehaviour {
 		else if(Application.loadedLevelName == "Minigame 3")
 		{
 			float dly = 2;
-			//prevlacenje igracke
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
-			//prevlacenje cucle
+			
 			else if(_phase == 1)    ShowPointerAndMoveToPosition(1,dly);
-			//cebe
+			
 			else if(_phase == 2)   ShowPointerAndMoveToPosition(2,dly);
-			//lampa
+			
 			else if(_phase == 3)   ShowPointerAndTapOnPosition(3,dly);
-			//kolevka
+		
 			else if(_phase == 4)   ShowPointerAndMoveRepeating(4,dly );
 		 
 		}
@@ -326,17 +326,17 @@ public class Tutorial : MonoBehaviour {
 		else if(Application.loadedLevelName == "Minigame 4")
 		{
 			float dly = 2;
-			//bacanje pelene
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
-			//prevlacenje pelene
+			
 			else if(_phase == 1)    ShowPointerAndMoveToPosition(1,dly);
-			//maramica
+			
 			else if(_phase == 2)   ShowPointerAndMoveToPosition(2,dly );
-			//krema
+			
 			else if(_phase == 3)   ShowPointerAndTapOnPosition(3,dly);
-			//razmazivanje kreme
+			
 			else if(_phase == 4)   ShowPointerAndMoveRepeating(4,dly );
-			//pranje zuba
+			
 			else if(_phase == 5)   ShowPointerAndMoveRepeating(5, GameObject.Find("TP5FS").transform.position,dly );
 			
 		}
@@ -344,39 +344,39 @@ public class Tutorial : MonoBehaviour {
 		else if(Application.loadedLevelName == "Minigame 5A")
 		{
 			float dly = 2;
-			//voce u blender
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly+1);
-			//aktiviranje blendera
+			
 			else if(_phase == 1)    ShowPointerAndTapOnPosition(1,dly);
-			//sipanje u ciniju 
+			
 			else if(_phase == 2)   ShowPointerAndMoveToPosition(2,dly );
-			//hranjenje
+			
 			else if(_phase == 3)   ShowPointerAndMoveRepeating(3, GameObject.Find("TP3FS").transform.position,dly+4 );
-			//brisanje
+			
 			else if(_phase == 4)   ShowPointerAndMoveToPosition(4,dly );
 		}
 
 		else if(Application.loadedLevelName == "Minigame 5B")
 		{
 			float dly = 2;
-			//mleko
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly+1);
-			//pahuljice
+			
 			else if(_phase == 1)    ShowPointerAndMoveToPosition(1,dly);
-			//voce
+		
 			else if(_phase == 2)   ShowPointerAndMoveToPosition(2,dly );
-			//mesanje
+			
 			else if(_phase == 3)   ShowPointerAndMoveRepeating(3, GameObject.Find("TP3FS").transform.position,dly );
-			//hranjenje
+			
 			else if(_phase == 4)   ShowPointerAndMoveRepeating(4, GameObject.Find("TP3FS").transform.position,dly);
-			//brisanje
+			
 			else if(_phase == 5)   ShowPointerAndMoveToPosition(5,dly );
 		}
 
 		else if(Application.loadedLevelName == "Minigame 6")
 		{
 			float dly = 2;
-			//igracka
+			
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
 		}
 
@@ -384,15 +384,15 @@ public class Tutorial : MonoBehaviour {
 		else if(Application.loadedLevelName == "Minigame 7")
 		{
 			float dly = 2;
-			//komarac
+		
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
-			//krema
+			
 			else if(_phase == 1)    ShowPointerAndTapOnPosition(1,dly+2);
-			//utrljavanje kreme
+			
 			else if(_phase == 2)   ShowPointerAndMoveRepeating(2, dly );
-			//zavesa
+			
 			else if(_phase == 3)   ShowPointerAndMoveToPosition(3,dly);
-			//lampa
+			
 			else if(_phase == 4)   ShowPointerAndMoveRepeating(4,dly );
 			 
 			
@@ -400,7 +400,6 @@ public class Tutorial : MonoBehaviour {
 		else if(Application.loadedLevelName == "Minigame 8")
 		{
 			float dly = 2;
-			//igracka
 			if(_phase == 0)   ShowPointerAndMoveToPosition(0,dly);
 		}
 
@@ -420,7 +419,7 @@ public class Tutorial : MonoBehaviour {
 		}
 	}
 
-	public void PauseTutorial( string state ) //dodaj mogucnost ponovnog pokretanja
+	public void PauseTutorial( string state )
 	{
 		if(Application.loadedLevelName == "Minigame 1")
 		{
@@ -451,25 +450,6 @@ public class Tutorial : MonoBehaviour {
 		{
 			StopTutorial( );
 		}
-
-		 
-
-
-
-//		Debug.Log(state);
-//		if(state.Replace("TopMenu ","") == phase.ToString())
-//	   {
-//
-//			CancelInvoke("RepeatTutorial");
-//			lastTutorial = "";
-//			
-//			StopAllCoroutines();
-//			if(bActive)
-//			{
-//				HidePointer();
-//				bActive = false;
-//			}
-//		}
 	}
 
 

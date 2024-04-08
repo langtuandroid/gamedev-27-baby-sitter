@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using TemplateScripts;
 using UnityEngine.Serialization;
 
@@ -25,7 +24,6 @@ public class MosquitoMove : MonoBehaviour {
 	private bool bSoundActive = false;
 	private readonly int maxActiveSounds = 4;
 
-	// Use this for initialization
 	private void Awake () 
 	{
 		bMove = false;
@@ -47,10 +45,9 @@ public class MosquitoMove : MonoBehaviour {
 		transform.position = new Vector3( 2000,2000,2000);
 		limitTopLeft = transform.parent.parent.Find("TL");
 		limitBottomRight = transform.parent.parent.Find("BR");
-
-
+		
 		yield return new WaitForSeconds(.2f);
-		//yield return new WaitForEndOfFrame();
+	
 		if(Random.Range(0f,2f) >1)
 			transform.position =      new Vector3(  limitTopLeft.position.x- Random.Range(2f,3f), Random.Range(limitBottomRight.position.y, limitTopLeft.position.y),0 );
 		else
@@ -62,13 +59,10 @@ public class MosquitoMove : MonoBehaviour {
 
 	private IEnumerator SetTargetPos()
 	{
- 
 		yield return new WaitForEndOfFrame();
 		prevTargetPos = transform.position;
 		targetPos = new Vector3(Random.Range(limitBottomRight.position.x, limitTopLeft.position.x), Random.Range(limitBottomRight.position.y, limitTopLeft.position.y));
-		 
-	 
-
+		
 		if(SoundManager.SoundOn ==1 &&   !bSoundActive && ActiveSoundsCount<maxActiveSounds)
 		{
 			ActiveSoundsCount++;
@@ -76,8 +70,6 @@ public class MosquitoMove : MonoBehaviour {
 			mosquitoSound.Play( (ulong) Random.Range(0,50000) );
 			mosquitoSound.pitch = Random.Range(.95f,1.5f);
 		}
-
-
 	}
 	
 	private void Update () 

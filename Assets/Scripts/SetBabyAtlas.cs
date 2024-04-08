@@ -208,8 +208,6 @@ public class SetBabyAtlas : MonoBehaviour {
 		}
 	}
 
-	//------------------------------brisi----------------------------------
-
 	public void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.A))

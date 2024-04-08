@@ -31,15 +31,13 @@ public class TopMenu : MonoBehaviour {
 	[FormerlySerializedAs("ActiveItemHolder")] [SerializeField] private Transform activeItemHolder;
 	[FormerlySerializedAs("DragTargetPositions")] [SerializeField] private Transform[] dragTargetPositions;
 	
-	public void SetMenuItems (int subMenuNo) //mg1
+	public void SetMenuItems (int subMenuNo)
 	{
 		activeMenu = subMenuNo;
 		Dictionary <string,MenuItemData> m = menuItems.ReturmMenu(subMenuNo);
 		
-		//----------------------------------------------------
 		menuItems.ReturnMenuImages(subMenuNo, out itemSprites2,m.Count);
-		
-		//----------------------------------------------------
+	
 		string tmp =  "M" + subMenuNo.ToString().PadLeft(2,'0') + "_";
 		
 		float scrollContentSize = 190;
@@ -48,10 +46,6 @@ public class TopMenu : MonoBehaviour {
 		scrollContentSize = btnWidth * m.Count   ;  
 		scrollContent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal  ,scrollContentSize  );
 		
-		
-		//POPUNA ITEMA
-		
-		//sakrivanje ako ima vise u meniju
 		if(m.Count<itemButtons.Count)
 		{
 			for(int i = m.Count; i<itemButtons.Count;i++)
@@ -67,7 +61,7 @@ public class TopMenu : MonoBehaviour {
 			MenuItemData d = m[ tmp + i.ToString().PadLeft(2,'0')];
 			Transform btn;
 			TopMenuItem ti;
-			//ako vec postoji kreirano dugme
+		
 			if(i<=itemButtons.Count)
 			{
 				btn = itemButtons[i-1];
@@ -78,14 +72,8 @@ public class TopMenu : MonoBehaviour {
 
 				ti.targetPoint = new Transform[1];
 				ti.targetPoint[0] = dragTargetPositions[activeMenu-1];
- 
-				//btn.GetComponent<Button>().onClick.RemoveAllListeners();
-				//btn.GetComponent<Button>().onClick.AddListener(() =>ButtonItemClicked(btn.name));
-				
-				//sredi zakljucavanje itema
-				//btn.GetComponent<Button>().enabled = !d.Locked;
 			}
-			else //kreira se novo dugme
+			else 
 			{
 				btn = (Transform) GameObject.Instantiate(btnMenuItemPref);
 				btn.SetParent(scrollContent);
@@ -96,16 +84,9 @@ public class TopMenu : MonoBehaviour {
 				ti.targetPoint = new Transform[1];
 				ti.targetPoint[0] = dragTargetPositions[activeMenu-1];
 
-
-				//btn.GetComponent<Button>().onClick.RemoveAllListeners();
-				//btn.GetComponent<Button>().onClick.AddListener(() =>ButtonItemClicked(btn.name));
-				
-				//sredi zakljucavanje itema
-				//btn.GetComponent<Button>().enabled = !d.Locked;
 				itemButtons.Add(btn);
 			}
-
-			//--------PODESAVANJE SLIKE----------------------------------------------
+			
 			btn.transform.localScale = Vector3.one;
 			ti.activeMenu = activeMenu;
 			if(d.ButtonImgName == "")
@@ -147,26 +128,16 @@ public class TopMenu : MonoBehaviour {
 					}
 				}
 			}
- 
-
-			//ti.bLocked = d.Locked;
-			//ti.SetLockImage();
 		}
 
 		transform.SendMessage("MenuChanged");
 		scrollRect.horizontalNormalizedPosition = 0;
 	}
 
- 
-
-	//--------------------------------------------------
 	public void ButtonItemClicked(string item)
 	{
-
 		if(MiniGame1.CompletedActionNo < activeMenu+1) return;
-
-
-		//		Debug.Log(item);
+		
 		StopAllCoroutines();
 		Sprite sprite = null;
 		MenuItemData it =MenuItems.mitd[item];
@@ -187,8 +158,6 @@ public class TopMenu : MonoBehaviour {
 				StartCoroutine(  DecorationFadeIn(decoration1,sprite));
 			else 
 				StartCoroutine( DecorationCrossFadeAndSwap(decoration1,decoration2,sprite,true ));
-
-			//GameObject.Find("CanvasBG/SceneGraphics/Baby/P"+activeMenu.ToString()+"/Particles").GetComponent<ParticleSystem>().Play();	
 		}
 		else
 		{
@@ -198,7 +167,6 @@ public class TopMenu : MonoBehaviour {
  
 		 
 		if(SoundManager.Instance != null) SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.ButtonClick);
-		//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.ElementCompleted);
 	}
 
 	private IEnumerator DecorationFadeIn(Image img,   Sprite sp)

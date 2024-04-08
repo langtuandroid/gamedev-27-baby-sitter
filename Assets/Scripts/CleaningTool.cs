@@ -47,7 +47,7 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 	private Transform dragItemParent;
  
 	[SerializeField] private GameObject BubblesPref;
-	//public List< Animator> bubblesAnim= new  List<Animator>();
+	
 	private int bubblesCount;
 	[SerializeField] private CleaningTool AssociatedTool;
 
@@ -122,13 +122,7 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 
 			if(bubblesCount >= 50 )
 			{
-				//trPom.GetChild(0).GetChild(0).SendMessage("Cleaned",ToolNo,SendMessageOptions.DontRequireReceiver);
-				 
-				CancelInvoke("CreateBubbles");
-				//bubblesAnimHolder.WashBubbles();
-
-
-
+				CancelInvoke(nameof(CreateBubbles));
 				ToolCleaningFinished();
 			}
 		}	
@@ -154,8 +148,7 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 
 			if( toolType == ToolType.soap  )
 			{
-				animationChild.SetTrigger("tUpDownClean");  
-				//if( SoundManager.Instance!=null )  SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.SoapSound);
+				animationChild.SetTrigger("tUpDownClean");
 				Tutorial.Instance.StopTutorial();
 			}
 			else if(toolType == ToolType.shampoo  )
@@ -165,7 +158,6 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 					bDrag = false;
 					animationChild.SetTrigger("tShampooBottle");
 					StartCoroutine("SnapToTarget",trPom.transform);
-					//if( SoundManager.Instance!=null )  SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.SoapSound);
 					Tutorial.Instance.StopTutorial();
 				}
 			}
@@ -177,8 +169,7 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 			}
 			if( toolType == ToolType.bathtub_plug  )
 			{
-				animationChild.SetTrigger("tPlug");  
-				//if( SoundManager.Instance!=null )  SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.SoapSound);
+				animationChild.SetTrigger("tPlug");
 				Tutorial.Instance.StopTutorial();
 			}
 		}
@@ -215,8 +206,6 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 
 	public void ShampooBottleDrop()
 	{
-//		Debug.Log(transform.name);
-
 		shampooDrop.SetActive(true);
 	 
 		shampooDrop.GetComponent<Animator>().Play("ShampooDrop",-1,0);
@@ -264,59 +253,6 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 		{
 			ToolCleaningFinished();
 		}
-		 /*
-		if(trPom!=null) 
-		{
-			Collider2D[] hitColliders ;
-			if(ToolNo==1)
-				hitColliders = Physics2D.OverlapCircleAll(TestPoint.position, testDistance *10  , 1 << LayerMask.NameToLayer("Tool1Interact")); //layermask to filter the varius colliders
-//			else if(ToolNo<4)
-//				hitColliders = Physics2D.OverlapCircleAll(TestPoint.position, testDistance *4  , 1 << LayerMask.NameToLayer("Tool"+ToolNo.ToString()+"Interact")); //layermask to filter the varius colliders
-//		 
-
-				 
-			if(hitColliders.Length > 0 )
-			{
-				for (int i =0 ; i<hitColliders.Length; i++)    
-				{
-					if(trPom == hitColliders[i].transform)
-					{
-						if( toolType == ToolType.soap  )
-						{
-							trPom.GetChild(0).GetChild(0).SendMessage("Cleaned",ToolNo,SendMessageOptions.DontRequireReceiver);
-							 
-						}
-						else if( toolType != ToolType.glass_spray  )
-							trPom.SendMessage("Cleaned",ToolNo,SendMessageOptions.DontRequireReceiver);
-
-						if(ToolCollectedStars<5 )
-						{
-							ToolCollectedStars++;
-							//SetStars( );
-						
-							if(toolType == ToolType.soap && ToolCollectedStars ==5)
-							{
-								for (int j = bubblesAnim.Count-1; j >=0; j--) 
-								{
-									bubblesAnim[j].SetTrigger("tHide");
-									GameObject.Destroy(bubblesAnim[j].gameObject,2f);
-								}	 
-								CancelInvoke("CreateBubbles");
-								bubblesAnim.Clear();
-							}
-
-							 
-
-						}
-	 
-						ToolCleaningFinished();
-						break;
-					}
-				}
-			}
-
-		}
-*/
 		if( toolType == ToolType.soap  )
 		{ 
 			//SoundManager.Instance.Stop_Sound(SoundManager.Instance.SoapSound);
@@ -348,18 +284,17 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 			if( toolType != ToolType.bathtub_plug  ) transform.localScale = 1.4f*Vector3.one;
 			animationChild.transform.parent.rotation = Quaternion.Euler(0,0,0);
 			ActiveToolNo = toolNo;
-			//	SoundManager.Instance.Play_ToolClick();
+
 			bDrag = true;
 			diffPos =transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)   ;
 			diffPos = new Vector3(diffPos.x,diffPos.y,0);
 			
-			InvokeRepeating("TestClean",0f, .1f);
+			InvokeRepeating(nameof(TestClean),0f, .1f);
 			
 			transform.SetParent(dragItemParent);
 			if( toolType == ToolType.soap  )
 			{
-				InvokeRepeating("CreateBubbles",0f, .1f);
-				//				if( Tutorial.Instance!=null) 	Tutorial.Instance.StopTutorial();
+				InvokeRepeating(nameof(CreateBubbles),0f, .1f);
 			}
 			else if( toolType == ToolType.shampoo  )
 			{
@@ -384,12 +319,12 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
  
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		if(toolType == ToolType.soap) CancelInvoke("CreateBubbles");
+		if(toolType == ToolType.soap) CancelInvoke(nameof(CreateBubbles));
 		if(  !bIsKoriscen &&  bDrag 	)  
 		{
 			bDrag = false;
-			CancelInvoke("TestClean");
-			StartCoroutine("MoveBack" );
+			CancelInvoke(nameof(TestClean));
+			StartCoroutine(nameof(MoveBack) );
 			if(toolType == ToolType.spray ) 
 			{
 				animationChild.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
@@ -402,30 +337,9 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 		if(!bMovingBack)
 		{
 			bMovingBack = true;
-
-			//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.ShowMenu);
+			
 			yield return new WaitForEndOfFrame( );
-/*	 vrati
- 			if(SoundManager.Instance!=null)
-			{
-				if( toolType == ToolType.soap  )
-				{ 
-					 SoundManager.Instance.Stop_Sound(SoundManager.Instance.SoapSound);
-				}
-				else if( toolType == ToolType.glass_spray ) 
-				{
-					 SoundManager.Instance.Stop_Sound(SoundManager.Instance.SpraySound);
-				}
-				else  if( toolType == ToolType.cloth ) 
-				{
-					 SoundManager.Instance.Stop_Sound(SoundManager.Instance.ClothSound);
-				}
-				else if( toolType == ToolType.chisel ) 
-				{
-					SoundManager.Instance.Stop_Sound(SoundManager.Instance.ChiselSound);
-				}
-			}
-*/
+
 			float pom = 0;
 			Vector3 positionS = transform.position;
 			while(pom<1 )
@@ -452,17 +366,13 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 				towelImage.enabled = false;
 				towelImage.transform.parent.GetComponent<Image>().enabled = true;
 			}
- 
-			//activeToolNo = 0;
+			
 			bMovingBack = false;
 			if(bIsKoriscen) 
 			{
-
-				//transform.FindChild("Finished").GetComponent<Image>().enabled = true;
-				//SoundManager.Instance.StopAndPlay_Sound(SoundManager.Instance.CleaningFinished);
+				
 			}
 		}
-//		Tutorial.bPause = false;	 
 	}
 
 	public void StartMoveBack()
@@ -481,8 +391,8 @@ public class CleaningTool : MonoBehaviour  , IBeginDragHandler, IDragHandler, IE
 			{
 				bDrag = false;
 				
-				CancelInvoke("TestClean");
-				StartCoroutine("MoveBack" );
+				CancelInvoke(nameof(TestClean));
+				StartCoroutine(nameof(MoveBack) );
 			}
 		}
 		appFoucs = hasFocus;

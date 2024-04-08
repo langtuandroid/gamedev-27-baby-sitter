@@ -36,8 +36,6 @@ public class Minigame2 : MonoBehaviour {
 	}
 	
 	private IEnumerator Start () {
-		//topMenu.ShowTopMenu();
-		//topMenu.SetMenuItems(1);
 		CompletedActionNo = 0;
 		CleaningTool.OneToolEnabledNo = 0;
 		
@@ -45,10 +43,7 @@ public class Minigame2 : MonoBehaviour {
 		BlockClicks.Instance.SetBlockAllDelay(.2f,false);
 		
 		yield return new WaitForSeconds(.1f);
-	
 		
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyBath();
 		
@@ -66,8 +61,6 @@ public class Minigame2 : MonoBehaviour {
 
 	private IEnumerator WaitNextPhase( string phaseState )
 	{
-		//Debug.Log (phase + "ss"+phaseState);
-		//punjenj kade vodom
 		if(phaseState == "ShowerTap" && phase == 0)
 		{
 			Tutorial.Instance.StopTutorial();
@@ -95,10 +88,8 @@ public class Minigame2 : MonoBehaviour {
 			yield return new WaitForSeconds(1);
 			Tutorial.Instance.ShowTutorial(1);
 		}
-		//stavljanje igracke i kadu
 		else if(phaseState == "GiveToy" && phase == 2)
 		{
-			//Debug.Log("GiveToy");
 			phase = 3;
 			CompletedAction();
 			CleaningTool.OneToolEnabledNo = 1;
@@ -107,9 +98,8 @@ public class Minigame2 : MonoBehaviour {
 			babyC.BabyBath();
 			Tutorial.Instance.ShowTutorial(2);
 		}
-		else if(phaseState == "Soap" && phase == 3) //SAPUN
+		else if(phaseState == "Soap" && phase == 3)
 		{
-			//Debug.Log("Soap");
 			CleaningTool.ActiveToolNo = 0;
 			CompletedAction();
 
@@ -121,16 +111,15 @@ public class Minigame2 : MonoBehaviour {
 			babyC.BabyBath();
 			Tutorial.Instance.ShowTutorial(3);
 		}
-		else if(phaseState == "Shampoo") //sampon
+		else if(phaseState == "Shampoo") 
 		{
 			Tutorial.Instance.ShowTutorial(4);
 		}
 
 
-		else if(phaseState == "ShampooHead" && phase == 4) //sampon utrljavanje
+		else if(phaseState == "ShampooHead" && phase == 4) 
 		{
 			CompletedAction();
-//			Debug.Log("ShampooHead");
 			CleaningTool.OneToolEnabledNo = 0;
 			yield return new WaitForSeconds(1);
 
@@ -144,7 +133,6 @@ public class Minigame2 : MonoBehaviour {
 		{
 			Tutorial.Instance.StopTutorial();
 			if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.Shower);
-//			Debug.Log("Wash Bubbles");
 			phase = 6;
 			animShower.Play("WashBabyStart");
 			psBabyWet1.gameObject.SetActive(true);
@@ -224,7 +212,7 @@ public class Minigame2 : MonoBehaviour {
 		{
 			babyC.BabySmile();
 			if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.MinigameCompleted);
-			StartCoroutine("LevelCompleted");
+			StartCoroutine(nameof(LevelCompleted));
 		}
 		else 
 		{
@@ -234,7 +222,6 @@ public class Minigame2 : MonoBehaviour {
 	
 	private IEnumerator LevelCompleted()
 	{
-//		Debug.Log("Completed");
 		GameData.BCompletedMiniGame = true;
 		psLevelCompleted.gameObject.SetActive(true);
 		yield return new WaitForEndOfFrame();
@@ -255,8 +242,6 @@ public class Minigame2 : MonoBehaviour {
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		
 		BlockClicks.Instance.SetBlockAll(true);
-		//Implementation.Instance.ShowInterstitial();
-
 	}
 
 	public void ButtonNextClicked()
@@ -266,7 +251,6 @@ public class Minigame2 : MonoBehaviour {
 		if(SoundManager.Instance!=null) SoundManager.Instance.Play_ButtonClick();
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 }

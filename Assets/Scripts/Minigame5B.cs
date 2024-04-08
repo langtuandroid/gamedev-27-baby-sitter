@@ -41,12 +41,7 @@ public class Minigame5B : MonoBehaviour {
 		BlockClicks.Instance.SetBlockAllDelay(.2f,false);
 
 		yield return new WaitForSeconds(.1f);
-	
-		//animBlender.Play("showBlender");
-		//BlenderButton.enabled = false;
 		
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyIdle();
 
@@ -164,9 +159,9 @@ public class Minigame5B : MonoBehaviour {
 			}
 			
 			fruitBowl.gameObject.SetActive(false);
-			//prikazivanje kasike
+
 			if( SoundManager.Instance!=null)  SoundManager.Instance.StopAndPlay_Sound( SoundManager.Instance.ShowItem,.4f);
-			//prikazi kasiku
+	
 			animSpoon.Play("showSpoon");
 			animSpoon.GetComponent<Spoon>().enabled = true;
 			yield return new WaitForSeconds(.8f);
@@ -229,8 +224,7 @@ public class Minigame5B : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 	}
 	
-	
-	 //zamena slike mleka
+
 	public void ChangeSpriteCereal(int _index)
 	{
 		StartCoroutine(nameof(WaitChangeSprite),_index);

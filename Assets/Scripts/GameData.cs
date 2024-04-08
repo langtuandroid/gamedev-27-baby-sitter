@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GameData  {
 
-	public static int SelectedMiniGameIndex =-1;//  // bebica koja je selektovana (0,1,2)
-	public static int SelectedMiniGame = -1; //mini igra koju selektovana bebica trazi
+	public static int SelectedMiniGameIndex =-1;
+	public static int SelectedMiniGame = -1; 
 	public static bool  BCompletedMiniGame = false;
 	public static int[] ActiveMiniGames;
 
@@ -13,15 +13,11 @@ public class GameData  {
 	public static int MgFeedingBabyVariant = 1;
 	
 	public static readonly int[] BabiesMg = {0,1,2,3};
-
-	//public static string Unlocked = "dafE1A";
-	 
-	//----------------------------------------------------------------
+	
 	public static void  SetMiniGamesQueue()
 	{
 		if(ActiveMiniGames !=null) return;
-
-//		Debug.Log("SET MG");
+		
 		ActiveMiniGames = new int[3];
 		int[] mg = new int[] {0,1,2,3,4,5,6,7};
 		int   a,j,k = 0;
@@ -42,8 +38,7 @@ public class GameData  {
 		{
 			MiniGamesQueue.Enqueue(mg[i]);
 		}
-
-		//bebice
+		
 		for(int i = 0; i <100;i++)
 		{
 			j = Random.Range(0,BabiesMg.Length);
@@ -86,18 +81,14 @@ public class GameData  {
 
 		return false;
 	}
+	
 
-
-	//------------------------------------------------------------------
-
-
-	private static string _sTestiranje = "";//InternetOff;";
+	private static string _sTestiranje = "";
 
   
 	public static void Init()
 	{
-		//-----------------------------------------------------------------
- 
+
 # if UNITY_EDITOR
 		if( true  ) 
 		{
@@ -106,7 +97,6 @@ public class GameData  {
 			 ;
 
 		}
-		//-----------------------------------------------------------------------
 #endif
  
 
@@ -133,7 +123,6 @@ public class GameData  {
 	{
 		MenuItems mi = new MenuItems();
 		UnlockedItems = PlayerPrefs.GetString("Data1", "");
-//			Debug.Log("UNLOCKED:  "+ UnlockedItems);
 		string[] unl_items = UnlockedItems.Split(new char[] {';'},System.StringSplitOptions.RemoveEmptyEntries);
 		for(int i = 0; i<unl_items.Length;i++)
 		{
@@ -157,22 +146,6 @@ public class GameData  {
 			}
 		}
 	}
-	
-	public static void IncrementButtonNextClickedCount()
-	{
-		//Implementation.Instance.ShowInterstitial();
-	}
- 
-
-	public static void IncrementButtonHomeClickedCount()
-	{
-		//Implementation.Instance.ShowInterstitial();
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------
-
-
-
 }
  
 

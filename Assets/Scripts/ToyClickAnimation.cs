@@ -11,7 +11,7 @@ public class ToyClickAnimation : MonoBehaviour, IPointerClickHandler {
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		if(anim == null) anim = transform.GetComponent<Animator>();
-		if(anim != null)    anim.CrossFade(animationName,.1f,-1,0);//     anim.Play(AnimationName,-1,0);
+		if(anim != null)    anim.CrossFade(animationName,.1f,-1,0);
 		if(animationName == "Zvecka") 	if(  SoundManager.Instance!=null)  	SoundManager.Instance.Play_Sound( SoundManager.Instance.RattleToy);
 	}
 }

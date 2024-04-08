@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 namespace TemplateScripts
 {
-	/**
-  * Scene:Splash
-  * Object:Main Camera
-  **/
 	public class SplashScene : MonoBehaviour {
 	
 		private int appStartedNumber;

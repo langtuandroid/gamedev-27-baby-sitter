@@ -58,8 +58,6 @@ public class Minigame7 : MonoBehaviour {
 
 		yield return new WaitForSeconds(.1f);
 		
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 		babyC.BabyCryingIdle();
 
@@ -77,8 +75,6 @@ public class Minigame7 : MonoBehaviour {
 
 	private void CreateMosquito()
 	{
-		//if(MosquitosHolder.childCount>6) return;
-	
 		GameObject go;
 		if(mosquitoCount <12)
 		{
@@ -172,9 +168,7 @@ public class Minigame7 : MonoBehaviour {
 			GameObject.Destroy (curtains1.parent.GetComponent<ItemAction>());
 
 			yield return new WaitForSeconds(1);
-			//Curtains2.gameObject. AddComponent<GraphicIgnoreRaycast>()  ;
 			curtains1.parent.gameObject. AddComponent<GraphicIgnoreRaycast>()  ;
-			//LampHandle.gameObject.SetActive(true);
 			lampHandle.bEnabled = true;
 			ShowTut();
 		}
@@ -299,7 +293,6 @@ public class Minigame7 : MonoBehaviour {
 		GameData.BCompletedMiniGame = false;
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicks.Instance.SetBlockAll(true);
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 	public void  ButtonNextClicked()
@@ -310,6 +303,5 @@ public class Minigame7 : MonoBehaviour {
 		if(SoundManager.Instance!=null) SoundManager.Instance.Play_ButtonClick();
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
-		//Implementation.Instance.ShowInterstitial();
 	}
 }

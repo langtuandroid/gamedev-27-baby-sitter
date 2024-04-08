@@ -42,10 +42,7 @@ public class MiniGame1 : MonoBehaviour {
 
 		
 		yield return new WaitForSeconds(.1f);
-
-	 
-		//podesi bebicu 
-		//Debug.Log("Selektovana bebica:  " +  (GameData.selectedMinigameIndex+1) );
+		
 		babyC.GetComponent<SetBabyAtlas>().SetBaby(GameData.GetSelectedBaby());
 
 		babyC.BabyCryingIdle();
@@ -75,30 +72,30 @@ public class MiniGame1 : MonoBehaviour {
 		if(CompletedActionNo == 2 )
 		{
 			if( selectedMenu !=1 )
-				Tutorial.Instance.ShowTutorial( 3 ); //ako nije odabran odgovarajuci meni pokazati da se klikne na 1 meni
+				Tutorial.Instance.ShowTutorial( 3 );
 			else
-				Tutorial.Instance.ShowTutorial( 2 );//ako jeste pokazati da treba da se prevuce pelena
+				Tutorial.Instance.ShowTutorial( 2 );
 		}
 		else if(CompletedActionNo == 3 )
 		{
 			if( selectedMenu !=2 )
-				Tutorial.Instance.ShowTutorial( 4 );//ako nije odabran odgovarajuci meni pokazati da se klikne na 2 meni
+				Tutorial.Instance.ShowTutorial( 4 );
 			else
-				Tutorial.Instance.ShowTutorial( 5 );//ako jeste pokazati da treba da se prevuce benkica
+				Tutorial.Instance.ShowTutorial( 5 );
 		}
 		else if(CompletedActionNo == 4 )
 		{
 			if( selectedMenu !=3 )
-				Tutorial.Instance.ShowTutorial( 6 );//ako nije odabran odgovarajuci meni pokazati da se klikne na 3 meni
+				Tutorial.Instance.ShowTutorial( 6 );
 			else
-				Tutorial.Instance.ShowTutorial( 7 );//ako jeste pokazati da treba da se prevuku cipelice
+				Tutorial.Instance.ShowTutorial( 7 );
 		}
 		else if(CompletedActionNo == 5 )
 		{
 			if( selectedMenu !=4 )
-				Tutorial.Instance.ShowTutorial( 8 );//ako nije odabran odgovarajuci meni pokazati da se klikne na 3 meni
+				Tutorial.Instance.ShowTutorial( 8 );
 			else
-				Tutorial.Instance.ShowTutorial( 9 );//ako jeste pokazati da treba da se prevuku cipelice
+				Tutorial.Instance.ShowTutorial( 9 );
 		}
  
 	}
@@ -120,11 +117,6 @@ public class MiniGame1 : MonoBehaviour {
 
 	public void CompletedAction()
 	{
-		//brojku mnozim sa 2 jer treba da postoji medjufaza za klik na dugme u meniju..
-		//skripta 
-
-
-		//----------------------------------------------------
 		CompletedActionNo++;
 		progressBar.SetProgress(CompletedActionNo/6f , true );
 
@@ -181,7 +173,6 @@ public class MiniGame1 : MonoBehaviour {
 		if(SoundManager.Instance!=null) SoundManager.Instance.Play_ButtonClick();
 		LevelTransition.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
-		//Implementation.Instance.ShowInterstitial();
 	}
 
 }

@@ -13,18 +13,11 @@ public class ProgressBar : MonoBehaviour {
 	[FormerlySerializedAs("Value")] [SerializeField] private float value = 0;
  
 	private void Awake () {
+		
 		progressBarFill.fillAmount = value;
-		 
 		SetProgress (0,false);
-
-		//SetProgress(.5f,true);
 	}
 
-	/// <summary>
-	/// Sets the progress.
-	/// </summary>
-	/// <param name="value">Value (0-1).</param>
-	///  <param name="bSmoothChange">postepeno povecavanje ako je true</param>
 	public void SetProgress(float value, bool bSmoothChange)
 	{
 		lastValue = progressBarFill.fillAmount;
