@@ -43,10 +43,10 @@ public class Minigame5BBS : MonoBehaviour {
 		yield return new WaitForSeconds(.1f);
 		
 		babyC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
-		babyC.BBabyIdle();
+		babyC.BabyIdle();
 
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 		TutorialBS.Instance.ShowTutorial(0);
 
 	}
@@ -186,7 +186,7 @@ public class Minigame5BBS : MonoBehaviour {
 		else  if(phaseState == "FeedBaby"  )
 		{
 
-			babyC.BBabyIdle();
+			babyC.BabyIdle();
 			phaseE ++;
 			CompletedActionN();
 			animSpoon.enabled = true;
@@ -225,7 +225,7 @@ public class Minigame5BBS : MonoBehaviour {
 	}
 	
 
-	public void ChangeSpriteCerealL(int _index)
+	public void ChangeSpriteCereal(int _index)
 	{
 		StartCoroutine(nameof(WaitChangeSpriteE),_index);
 	}
@@ -302,7 +302,7 @@ public class Minigame5BBS : MonoBehaviour {
 		{
 			if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.MinigameCompleted);
 			StartCoroutine(nameof(LevelCompletedD));
-			babyC.BBabySmile();
+			babyC.BabySmile();
 		}
 		else 
 		{
@@ -331,7 +331,7 @@ public class Minigame5BBS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		//Implementation.Instance.ShowInterstitial();
 	}
@@ -341,7 +341,7 @@ public class Minigame5BBS : MonoBehaviour {
 		_completedActionNoN = 0;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 		//Implementation.Instance.ShowInterstitial();
 	}

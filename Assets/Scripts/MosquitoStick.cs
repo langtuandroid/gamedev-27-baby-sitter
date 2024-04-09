@@ -52,14 +52,14 @@ public class MosquitoStick : MonoBehaviour, IPointerClickHandler
 		}
 	}
 
-	public void AnimSmack_End()
+	public void AnimSmackEnd()
 	{
 		bAnimationN = false;
 		 
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(testPoint.position, testDistanceE  , 1 << LayerMask.NameToLayer("Tool1Interact")); 
 		for ( int i = 0; i<hitColliders.Length; i ++  )
 		{
-			hitColliders[i].SendMessage("Smack");
+			hitColliders[i].SendMessage("SmackK");
 		}
 
 		if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.MoquitoSmackK);

@@ -46,10 +46,10 @@ public class Minigame2BS : MonoBehaviour {
 		yield return new WaitForSeconds(.1f);
 		
 		babyC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
-		babyC.BBabyBath();
+		babyC.BabyBath();
 		
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 		 
 		TutorialBS.Instance.ShowTutorial(0);
 	}
@@ -94,9 +94,9 @@ public class Minigame2BS : MonoBehaviour {
 			phaseE = 3;
 			CompletedActionN();
 			CleaningToolBS.OneToolEnabledNoN = 1;
-			babyC.BBabySmile();
+			babyC.BabySmile();
 			yield return new WaitForSeconds(1.5f);
-			babyC.BBabyBath();
+			babyC.BabyBath();
 			TutorialBS.Instance.ShowTutorial(2);
 		}
 		else if(phaseState == "Soap" && phaseE == 3)
@@ -109,7 +109,7 @@ public class Minigame2BS : MonoBehaviour {
 			 
 			yield return new WaitForSeconds(.3f);
 			phaseE  = 4;
-			babyC.BBabyBath();
+			babyC.BabyBath();
 			TutorialBS.Instance.ShowTutorial(3);
 		}
 		else if(phaseState == "Shampoo") 
@@ -211,7 +211,7 @@ public class Minigame2BS : MonoBehaviour {
 		
 		if(CompletedActionNoN == 7)
 		{
-			babyC.BBabySmile();
+			babyC.BabySmile();
 			if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.MinigameCompleted);
 			StartCoroutine(nameof(LevelCompletedD));
 		}
@@ -240,7 +240,7 @@ public class Minigame2BS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		
 		BlockClicksBs.Instance.SetBlockAllL(true);
 	}
@@ -250,7 +250,7 @@ public class Minigame2BS : MonoBehaviour {
 		CompletedActionNoN = 0;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 	}
 

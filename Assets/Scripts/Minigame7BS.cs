@@ -59,11 +59,11 @@ public class Minigame7BS : MonoBehaviour {
 		yield return new WaitForSeconds(.1f);
 		
 		babyC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
-		babyC.BBabyCryingIdle();
+		babyC.BabyCryingIdle();
 
 		mosquitoCountT = mosquitosHolder.childCount;
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 
 		yield return new WaitForSeconds(1);
 
@@ -155,13 +155,13 @@ public class Minigame7BS : MonoBehaviour {
 			
 			StartCoroutine(nameof(HideCreamSpotsS));
 			CompletedActionN();
-			babyC.BBabySmile();
+			babyC.BabySmile();
 			ShowTutorial();
 		}
 
 		else if(phaseState == "Curtains"  )
 		{
-			babyC.BBabySleepy();
+			babyC.BabySleepy();
 			phaseS ++;
 			yield return new WaitForSeconds(1);
 			CompletedActionN();
@@ -174,7 +174,7 @@ public class Minigame7BS : MonoBehaviour {
 		}
 		else if(phaseState == "LampHandle"  )
 		{
-			babyC.BBabySleeping();
+			babyC.BabySleeping();
 			psSleeping.SetActive(true);
 			lampHandle.bEnabled = false;
 			lampHandle.enabled = false;
@@ -291,7 +291,7 @@ public class Minigame7BS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicksBs.Instance.SetBlockAllL(true);
 	}
 
@@ -301,7 +301,7 @@ public class Minigame7BS : MonoBehaviour {
 		psSleeping.GetComponent<ParticleSystem>().enableEmission = false;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 	}
 }

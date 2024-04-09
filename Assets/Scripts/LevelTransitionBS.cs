@@ -8,8 +8,8 @@ public class LevelTransitionBS : MonoBehaviour {
  
 	public static LevelTransitionBS Instance;
 	
-	private static string _nextLevelNameE = "";
-	private bool bLoadSceneE = false;  
+	private static string _nextLevelName = "";
+	private bool bLoadScene = false;  
 
 	private void Start () 
 	{
@@ -21,9 +21,12 @@ public class LevelTransitionBS : MonoBehaviour {
 
 	private void Awake()
 	{
-		if(_nextLevelNameE != "" &&  Application.loadedLevelName == "TransitionScene") 
+		if(_nextLevelName != "" &&  Application.loadedLevelName == "TransitionScene") 
 		{
-			Application.LoadLevel(_nextLevelNameE);
+//			Debug.Log("Transition SCENE");
+			Application.LoadLevel(_nextLevelName);
+			 
+			return;
 		}
 		else
 		{
@@ -33,7 +36,7 @@ public class LevelTransitionBS : MonoBehaviour {
 		}
 	}
 
-	public void OnLevelWasLoadedD(int level)
+	public void OnLevelWasLoaded(int level)
 	{
 		if(Application.loadedLevelName != "TransitionScene" )
 		{
@@ -42,7 +45,7 @@ public class LevelTransitionBS : MonoBehaviour {
 		}
 	}
 	
-	private IEnumerator WaitAndDestroy()
+	private IEnumerator  WaitAndDestroy()
 	{
 		yield return new WaitForEndOfFrame();
 		if(Instance.anim == null) Instance.anim = GameObject.Find("TransitionImageC").GetComponent<Animator>();
@@ -51,23 +54,23 @@ public class LevelTransitionBS : MonoBehaviour {
 	}
 
 
-	public void HideSceneAndLoadNextT(string levelName)
+	public void HideSceneAndLoadNext(string levelName)
 	{
-		if(bLoadSceneE) return;
-		bLoadSceneE = true;
-		_nextLevelNameE = levelName;
+		if(bLoadScene) return;
+		bLoadScene = true;
+		_nextLevelName = levelName;
 		StopAllCoroutines();
 		//StartCoroutine(SetBlockAll(0,true));
 		BlockClicksBs.Instance.SetBlockAllL(true);
 
 		anim.gameObject.SetActive(true);
-		StartCoroutine(nameof(LoadSceneE) , levelName);
+		StartCoroutine(nameof(LoadScene) , levelName);
 		
 		if(anim != null)  anim.SetBool("bClose",true);
 
 	}
 
-	public void ShowSceneE()
+	public void ShowScene()
 	{
 		if(anim == null) anim = GameObject.Find("TransitionImageC").GetComponent<Animator>();
 		if(anim!=null)  anim.SetBool("bClose",false);
@@ -77,17 +80,17 @@ public class LevelTransitionBS : MonoBehaviour {
 	}
 
 	 
-	private IEnumerator LoadSceneE (string levelName)
+	private IEnumerator LoadScene (string levelName)
 	{
 		if(SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.StopActiveSoundsOnExitAndClearList();
 		yield return new WaitForSeconds(1.2f);
-		bLoadSceneE = false;
+		bLoadScene = false;
 
 		Application.LoadLevel("TransitionScene");
 		
 	}
 
-	public void HideAndShowSceneWithoutLoadingG( )
+	public void HideAndShowSceneWithoutLoading( )
 	{
 		StopAllCoroutines();
 		//StartCoroutine(SetBlockAll(0,true));
@@ -95,11 +98,11 @@ public class LevelTransitionBS : MonoBehaviour {
 		 
 		anim.gameObject.SetActive(true);
 		anim.SetBool("bClose",true);
-		StartCoroutine(nameof(WaitHideAndShowSceneE));
+		StartCoroutine(nameof(WaitHideAndShowScene));
 
 	}
 
-	private IEnumerator WaitHideAndShowSceneE ( )
+	private IEnumerator WaitHideAndShowScene ( )
 	{
 		yield return new WaitForSeconds(2f);
 		anim.SetBool("bClose",false);
@@ -108,15 +111,14 @@ public class LevelTransitionBS : MonoBehaviour {
 		BlockClicksBs.Instance.SetBlockAllDelayY(1f,false);
 	}
 
-	public void AnimEventHideSceneAnimStartedD()
+	public void AnimEventHideSceneAnimStarted()
 	{
 
 	}
 
-	public void AnimEventShowSceneAnimFinishedD()
+	public void AnimEventShowSceneAnimFinished()
 	{
 		anim.gameObject.SetActive(false);
 	}
-	
 }
 

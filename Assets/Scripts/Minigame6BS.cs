@@ -101,7 +101,7 @@ public class Minigame6BS : MonoBehaviour {
 		BlockClicksBs.Instance.SetBlockAllDelayY(.2f,false);
 		
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 
 		TutorialBS.Instance.tutStartPos[0].position = toys[5].transform.position + new Vector3(0,0.2f,0);
 
@@ -160,7 +160,7 @@ public class Minigame6BS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		//Implementation.Instance.ShowInterstitial();
@@ -171,7 +171,7 @@ public class Minigame6BS : MonoBehaviour {
 		_completedActionNoN = 0;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 		//Implementation.Instance.ShowInterstitial();
 	}

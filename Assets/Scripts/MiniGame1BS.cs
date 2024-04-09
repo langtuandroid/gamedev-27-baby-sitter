@@ -45,9 +45,9 @@ public class MiniGame1BS : MonoBehaviour {
 		
 		babyCC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
 
-		babyCC.BBabyCryingIdle();
+		babyCC.BabyCryingIdle();
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 
 		TutorialBS.Instance.ShowTutorial(0);
 	}
@@ -121,7 +121,7 @@ public class MiniGame1BS : MonoBehaviour {
 
 		if(CompletedActionNoN >2) //==3)
 		{
-			babyCC.BBabySmile();
+			babyCC.BabySmile();
 		}
 
 		if(CompletedActionNoN == 6)
@@ -158,7 +158,7 @@ public class MiniGame1BS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 	 
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		//Implementation.Instance.ShowInterstitial();
@@ -169,7 +169,7 @@ public class MiniGame1BS : MonoBehaviour {
 		CompletedActionNoN = 0;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 	}
 

@@ -130,7 +130,7 @@ public class TopMenuBS : MonoBehaviour {
 			}
 		}
 
-		transform.SendMessage("MenuChanged");
+		transform.SendMessage("MenuChangedDD");
 		scrollRect.horizontalNormalizedPosition = 0;
 	}
 
@@ -185,7 +185,7 @@ public class TopMenuBS : MonoBehaviour {
 			yield return new WaitForFixedUpdate();
 		}
 		img.color = new Color(1,1,1,1);
-		Camera.main.SendMessage("CompletedAction");
+		Camera.main.SendMessage("CompletedActionN");
 	}
 
 	private IEnumerator DecorationCrossFadeAndSwapP(Image img1, Image img2,  Sprite sp, bool swapPositions = false)

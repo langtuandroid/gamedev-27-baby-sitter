@@ -1,89 +1,90 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TemplateScripts;
-using UnityEngine.Serialization;
 
 public class BabyControllerBs : MonoBehaviour {
 
-	private Animator animM;
-	private Animator animEyesE;
+	private Animator anim;
+	private Animator animEyes;
 
-	[FormerlySerializedAs("redSpots")] [SerializeField] private GameObject[] redSpotsS;
+	[SerializeField] private GameObject[] redSpots;
 	[SerializeField] private Image diaper;
-	[FormerlySerializedAs("poop")] [SerializeField] private GameObject poopP;
-	[FormerlySerializedAs("dirtCltohes")] [SerializeField] private GameObject dirtClothes;
-	[FormerlySerializedAs("clothes")] [SerializeField] private Image clothesE;
-	[FormerlySerializedAs("cleanWithTissue")] [SerializeField] private GameObject cleanWithTissueE;
+	[SerializeField] private GameObject poop;
+	[SerializeField] private GameObject dirtCltohes;
+	[SerializeField] private Image clothes;
+	[SerializeField] private GameObject cleanWithTissue;
 	
-	[FormerlySerializedAs("atlas")] [SerializeField] private SetBabyAtlasBS atlass;
+	[SerializeField] private SetBabyAtlasBS atlas;
 	
-	public void SelectMinigameSetBaby(int baby, int minigame)
+	public void SelectMinigame_SetBaby( int baby,  int minigame)
 	{
-		animM = transform.GetComponent<Animator>();
-		atlass =  transform.GetComponent<SetBabyAtlasBS>();
-		
-		atlass.SetBabyY(baby);
-		atlass.SetMiniGameE(minigame);
-		
+		anim = transform.GetComponent<Animator>();
+		atlas =  transform.GetComponent<SetBabyAtlasBS>();
+
+
+		atlas.SetBabyY(baby);
+		atlas.SetMiniGameE(minigame);
+
+
 		switch(minigame)
 		{
 		case 0:
 		{
-			clothesE.gameObject.SetActive(true);
-			dirtClothes.SetActive(true);
-			BBabyCryingIdle();
+			clothes.gameObject.SetActive(true);
+			dirtCltohes.SetActive(true);
+			BabyCryingIdle();
 			break;
 		}
 		case 1:
 		{
-			BBabyIdle();
+			BabyIdle();
 			break;
 		}
 		case 2:
 		{
-			clothesE.gameObject.SetActive(true);
-			BBabySleepy();
+			clothes.gameObject.SetActive(true);
+			BabySleepy();
 			break;
 		}
 		case 3:
 		{
-			redSpotsS[0].SetActive(true);
-			redSpotsS[1].SetActive(true);
-			cleanWithTissueE.SetActive(true);
-			poopP.SetActive(true);
-			BBabyCryingIdle();
+			redSpots[0].SetActive(true);
+			redSpots[1].SetActive(true);
+			cleanWithTissue.SetActive(true);
+			poop.SetActive(true);
+			BabyCryingIdle();
 			break;
 		}
 		case 4:
 		{
-			BBabyCryingIdle();
+			BabyCryingIdle();
 			break;
 		}
 		case 5:
 		{
-			BBabyIdle();
+			BabyIdle();
 			break;
 		}
 		case 6:
 		{
-			BBabySleepy();
+			BabySleepy();
 			break;
 		}
 		case 7:
 		{
-			BBabyCryingIdle();
+			BabyCryingIdle();
 			break;
 		}
 
 		default:
-			BBabyIdle();
+			BabyIdle();
 			break;
 		}
 	}
 
 
 	private void Start () {
-		animM = transform.GetComponent<Animator>();
+		anim = transform.GetComponent<Animator>();
 
 		if( SoundManagerBS.Instance!=null) 
 		{
@@ -93,151 +94,156 @@ public class BabyControllerBs : MonoBehaviour {
 		}
 	}
 
-	public void AnimHappy_Completed()
+	public void  AnimHappyCompleted()
 	{
-		animM.SetInteger("Happy", Random.Range(1,4));
-		animM.speed = Random.Range(0.8f,1.2f);
+		anim.SetInteger("Happy", Random.Range(1,4));
+		anim.speed = Random.Range(0.8f,1.2f);
 	}
 
-	public void AnimCrying_Completed()
+	public void  AnimCryingCompleted()
 	{
 
-		animM.SetInteger("Crying", Random.Range(1,4));
-		animM.speed = Random.Range(0.8f,1.2f);
+		anim.SetInteger("Crying", Random.Range(1,4));
+		anim.speed = Random.Range(0.8f,1.2f);
 	}
 	
-	public void BBabyIdle()
+	public void BabyIdle()
 	{
 		CancelInvoke();
-		animM.SetBool("bCrying",false);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bEat",false);
+		anim.SetBool("bCrying",false);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bEat",false);
 		 
-		animM.ResetTrigger("tSmile");
+		anim.ResetTrigger("tSmile");
 
 		switch(Random.Range(1,4))
 		{
-		case 1: animM.Play ("BabyHappyIdle",-1,0); animM.SetInteger("Happy",1);break;
-		case 2: animM.Play ("BabyHappyIdle2",-1,0); animM.SetInteger("Happy",2);break;
-		case 3: animM.Play ("BabyHappyIdle3",-1,0); animM.SetInteger("Happy",3);break;
+		case 1: anim.Play ("BabyHappyIdle",-1,0); anim.SetInteger("Happy",1);break;
+		case 2: anim.Play ("BabyHappyIdle2",-1,0); anim.SetInteger("Happy",2);break;
+		case 3: anim.Play ("BabyHappyIdle3",-1,0); anim.SetInteger("Happy",3);break;
 		}
 		 
-		animM.speed = Random.Range(0.9f,1.2f);
+		anim.speed = Random.Range(0.9f,1.2f);
 	}
 
-	public void BBabySmile()
+	public void BabySmile()
 	{
 		CancelInvoke();
-		animM.SetBool("bCrying",false);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bEat",false);
-		animM.SetInteger("Happy",2);
-		 animM.SetTrigger("tSmile");
+		anim.SetBool("bCrying",false);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bEat",false);
+		anim.SetInteger("Happy",2);
+		 anim.SetTrigger("tSmile");
 		//anim.Play("BabyHappySmile",-1,0); 
 
 	}
 
-	public void BBabyWaitToEat()
+	public void BabyWaitToEat()
 	{
 		CancelInvoke();
-		animM.Play("BabyWaitEatAnimation",-1,0);
-		animM.SetBool("bEat",true);
-		animM.SetInteger("Happy",0);
+		anim.Play("BabyWaitEatAnimation",-1,0);
+		anim.SetBool("bEat",true);
+		anim.SetInteger("Happy",0);
+
+		 
 	}
 
-	public void BBabyEat()
+	public void BabyEat()
 	{
 		CancelInvoke();
-		animM.Play("BabyEatAnimation",-1,0);
-		animM.SetBool("bEat",true);
+		anim.Play("BabyEatAnimation",-1,0);
+		anim.SetBool("bEat",true);
 		if( SoundManagerBS.Instance!=null) SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.BabyChewW,.1f); 
 	}
 
-	public void BBabyCryingIdle()
+	public void BabyCryingIdle()
 	{
-		animM.SetInteger("Happy",0);
+ 
+		anim.SetInteger("Happy",0);
 		 
-		animM.SetBool("bCrying",true);
+		anim.SetBool("bCrying",true);
 		switch(Random.Range(1,4))
 		{
-		case 1: animM.Play ("BabyCryingIdle",-1,0);break;
-		case 2: animM.Play ("BabyCryingIdle2",-1,0);break;
-		case 3: animM.Play ("BabyCryingIdle3",-1,0);break;
+		case 1: anim.Play ("BabyCryingIdle",-1,0);break;
+		case 2: anim.Play ("BabyCryingIdle2",-1,0);break;
+		case 3: anim.Play ("BabyCryingIdle3",-1,0);break;
 		}
-		animM.speed = Random.Range(0.9f,1.2f);
+		anim.speed = Random.Range(0.9f,1.2f);
 		CancelInvoke();
-		Invoke(nameof(BBabyCryOpenMouth), Random.Range(1.5f,4f));
+		Invoke(nameof(BabyCryOpenMouth), Random.Range(1.5f,4f));
 	}
 
-	public void BBabyCryOpenMouth()
+	public void BabyCryOpenMouth()
 	{
-		animM.SetInteger("Happy",0);
-		animM.SetBool("bCrying",true);
-		animM.SetTrigger("tCryOpenMouth");
+		anim.SetInteger("Happy",0);
+		anim.SetBool("bCrying",true);
+		anim.SetTrigger("tCryOpenMouth");
 		CancelInvoke();
-		Invoke(nameof(BBabyCryOpenMouth), Random.Range(4.5f,12f));
+		Invoke(nameof(BabyCryOpenMouth), Random.Range(4.5f,12f));
 
 		if( SoundManagerBS.Instance!=null) SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.BabyCryY,.1f); 
 	}
 
-	public void BBabySleepy()
+	public void BabySleepy()
 	{
-		animM.SetInteger("Happy",0);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bCrying",false);
-		animM.SetBool("bEat",false);
-		animM.ResetTrigger("tCryOpenMouth");
-		animM.Play("Sleepy",-1,0);
+		anim.SetInteger("Happy",0);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bCrying",false);
+		anim.SetBool("bEat",false);
+		anim.ResetTrigger("tCryOpenMouth");
+		anim.Play("Sleepy",-1,0);
 		CancelInvoke();
 	 
 	}
 
-	public void BBabySleepy2()
+	public void BabySleepy2()
 	{
-		animM.SetInteger("Happy",0);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bCrying",false);
-		animM.SetBool("bEat",false);
-		animM.ResetTrigger("tCryOpenMouth");
-		animM.Play("Sleepy2",-1,0);
+		anim.SetInteger("Happy",0);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bCrying",false);
+		anim.SetBool("bEat",false);
+		anim.ResetTrigger("tCryOpenMouth");
+		anim.Play("Sleepy2",-1,0);
 		CancelInvoke();
 	}
 
-	public void BBabySleeping()
+	public void BabySleeping()
 	{
-		animM.SetInteger("Happy",0);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bCrying",false);
-		animM.SetBool("bEat",false);
-		animM.ResetTrigger("tCryOpenMouth");
-		animM.Play("Sleeping",-1,0);
+		anim.SetInteger("Happy",0);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bCrying",false);
+		anim.SetBool("bEat",false);
+		anim.ResetTrigger("tCryOpenMouth");
+		anim.Play("Sleeping",-1,0);
 		CancelInvoke();
 	}
 
-	public void BBabyBath()
+	public void BabyBath()
 	{
-		animM.SetInteger("Happy",0);
-		animM.SetInteger("Crying", 0);
-		animM.SetBool("bCrying",false);
-		animM.SetBool("bEat",false);
-		animM.ResetTrigger("tCryOpenMouth");
-		animM.Play("BabyBath",-1,0);
+		anim.SetInteger("Happy",0);
+		anim.SetInteger("Crying", 0);
+		anim.SetBool("bCrying",false);
+		anim.SetBool("bEat",false);
+		anim.ResetTrigger("tCryOpenMouth");
+		anim.Play("BabyBath",-1,0);
 		CancelInvoke();
 	}
-	
-	public void BBabyWaitToBrushTeeth()
+
+
+
+	public void BabyWaitToBrushTeeth()
 	{
 		CancelInvoke();
-		animM.Play("BrushTeethWait",-1,0);
-		animM.SetBool("bBrushingTeeth",false);
-		animM.SetInteger("Happy",0);
+		anim.Play("BrushTeethWait",-1,0);
+		anim.SetBool("bBrushingTeeth",false);
+		anim.SetInteger("Happy",0);
 		 
 		
 	}
 	
-	public void BBabyBrushTeeth(bool bBrushingTeeth)
+	public void BabyBrushTeeth(bool bBrushingTeeth)
 	{
-		animM.SetBool("bBrushingTeeth",bBrushingTeeth);
+		anim.SetBool("bBrushingTeeth",bBrushingTeeth);
 	}
 
 

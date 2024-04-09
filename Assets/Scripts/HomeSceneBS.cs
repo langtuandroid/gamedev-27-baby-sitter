@@ -40,9 +40,9 @@ public class HomeSceneBS : MonoBehaviour {
 			soundOn.enabled = false;
 		}
 
-		babyC.BBabyIdle();
+		babyC.BabyIdle();
 
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 		yield return new WaitForSeconds(1);
 	}
 
@@ -100,7 +100,7 @@ public class HomeSceneBS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
  
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		 

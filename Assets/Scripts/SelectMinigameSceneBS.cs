@@ -48,13 +48,13 @@ public class SelectMinigameSceneBS : MonoBehaviour {
 		for(int i = 0; i<3; i++)
 		{
 			minigameIcons[i].sprite=   spritesMinigames[GameDataBS.ActiveMiniGamesS[i]];
-			babiesS[i].SelectMinigameSetBaby(  GameDataBS.BabiesMgS[i], GameDataBS.ActiveMiniGamesS[i]);
+			babiesS[i].SelectMinigame_SetBaby(  GameDataBS.BabiesMgS[i], GameDataBS.ActiveMiniGamesS[i]);
 			 
 		}
 	 
  
 		yield return new WaitForSeconds(1f);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
  
 	}
 
@@ -103,7 +103,7 @@ public class SelectMinigameSceneBS : MonoBehaviour {
 		babiesS[0].CancelInvoke();
 		babiesS[1].CancelInvoke();
 		babiesS[2].CancelInvoke();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT(minigameName) ;  
+		LevelTransitionBS.Instance.HideSceneAndLoadNext(minigameName) ;  
  
 	 
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
@@ -117,7 +117,7 @@ public class SelectMinigameSceneBS : MonoBehaviour {
 		babiesS[2].CancelInvoke();
 
 	 
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("HomeScene") ;
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("HomeScene") ;
 		
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 

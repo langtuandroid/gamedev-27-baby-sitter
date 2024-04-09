@@ -68,8 +68,8 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 					if(bCradleCountEnabled) 
 					{
 						cradleSwingCountT++;
-						if(cradleSwingCountT == 1) Camera.main.SendMessage("BabySleep",1);
-						else 	if(cradleSwingCountT == 3) Camera.main.SendMessage("BabySleep",2);
+						if(cradleSwingCountT == 1) Camera.main.SendMessage("BabySleepP",1);
+						else 	if(cradleSwingCountT == 3) Camera.main.SendMessage("BabySleepP",2);
 
 						TutorialBS.Instance.StopTutor();
 					}
@@ -87,8 +87,8 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 					if(bCradleCountEnabled) 
 					{
 						cradleSwingCountT++;
-						if(cradleSwingCountT == 1) Camera.main.SendMessage("BabySleep",1);
-						else 	if(cradleSwingCountT == 3) Camera.main.SendMessage("BabySleep",2);
+						if(cradleSwingCountT == 1) Camera.main.SendMessage("BabySleepP",1);
+						else 	if(cradleSwingCountT == 3) Camera.main.SendMessage("BabySleepP",2);
 
 						TutorialBS.Instance.StopTutor();
 					}
@@ -110,7 +110,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 			if(bCradleCountEnabled && cradleSwingCountT == 5)
 			{
 				cradleSwingCountT= 6;
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 			}
 		}
 
@@ -139,11 +139,11 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				{
 					if(  eventData.delta.x< 0)
 					{
-						transform.parent.SendMessage("MoveCradle",1);
+						transform.parent.SendMessage("MoveCradleE",1);
 					}
 					else 
 					{
-						transform.parent.SendMessage("MoveCradle",2);
+						transform.parent.SendMessage("MoveCradleE",2);
 					}
 					bBlanketMoveCradleE = true;
 				}
@@ -180,7 +180,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				TutorialBS.Instance.StopTutor();
 				//Tutorial.Instance.PauseTutorial("RubCream");
 				dragProgressS+=Time.deltaTime ;
-				if( dragProgressS >1) Camera.main.SendMessage("NextPhase",gamePhaseState);
+				if( dragProgressS >1) Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 			}
 
 		}
@@ -188,7 +188,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 		//------------------------------------
 		if(bEnabled && gamePhaseState == "Curtains")
 		{
-			Camera.main.SendMessage("NextPhase",gamePhaseState);
+			Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 			if(animatorR == null) animatorR = transform.GetComponent<Animator>();
 			animatorR.SetTrigger("tClose");
 			bEnabled = false;
@@ -205,7 +205,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 		}
 		else if(bBlanketMoveCradleE)
 		{
-			transform.parent.SendMessage("ReleasseCradle",2);
+			transform.parent.SendMessage("ReleaseCradle",2);
 			bBlanketMoveCradleE = false;
 		}
 	}
@@ -244,7 +244,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 		if(bClickForAction && bEnabled ) 
 		{
 			if(gamePhaseState == "ShowerTap") 
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 			 
 			else if(gamePhaseState == "LampHandle") 
 			{
@@ -255,12 +255,12 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				if(!bLampOnN)
 				{
 					animatorR.Play("On");
-					Camera.main.SendMessage("NextPhase",gamePhaseState);
+					Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.LightSwitchH);
 				}
 				else 
 				{
-					Camera.main.SendMessage("UndoPhase",gamePhaseState);
+					Camera.main.SendMessage("UndoPhaseE",gamePhaseState);
 					animatorR.Play("Off");
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.LightSwitchH);
 				}
@@ -285,7 +285,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 			else if(gamePhaseState == "BlenderButton")
 			{
 				TutorialBS.Instance.StopTutor();
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 
 			}
 			else if(gamePhaseState == "Curtains")
@@ -293,7 +293,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				if(bEnabled)
 				{
 					 
-					Camera.main.SendMessage("NextPhase",gamePhaseState);
+					Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 					if(animatorR == null) animatorR = transform.GetComponent<Animator>();
 					animatorR.SetTrigger("tClose");
 					bEnabled = false;
@@ -304,7 +304,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 			else if(gamePhaseState == "Krema")
 			{
 				 
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 				if(animatorR == null) animatorR = transform.GetComponent<Animator>();
 				animatorR.Play ("insert");
 				if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.CreamTubeE);
@@ -315,7 +315,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 			else if(gamePhaseState == "Cream")
 			{
 				if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.CreamTubeE);
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 				bEnabled = false;
 			}
 
@@ -359,7 +359,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
 		if(targetProgressS >= 20 )
 		{
-			Camera.main.SendMessage("NextPhase",gamePhaseState);
+			Camera.main.SendMessage("NextPhaseE",gamePhaseState);
  
 			bDragForAction = false;
 			gameObject.SetActive(false);
@@ -370,7 +370,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
 	public void AnimCurtains_End()
 	{
-		Camera.main.SendMessage("NextPhase",gamePhaseState);
+		Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 	}
 	
 	private IEnumerator MoveBlanketT()
@@ -386,7 +386,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				transform.localPosition = Vector3.Lerp( endPos.localPosition, startPosS, pom);
 			 	transform.localScale = Vector3.Lerp( endPos.localScale, Vector3.one, pom);
 
-				Camera.main.SendMessage("UndoPhase",gamePhaseState);
+				Camera.main.SendMessage("UndoPhaseE",gamePhaseState);
 				yield return new WaitForFixedUpdate();
 			}
 		}
@@ -397,7 +397,7 @@ public class ItemActionBS : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 				pom += Time.fixedDeltaTime;
 				transform.localPosition = Vector3.Lerp(startPosS,  endPos.localPosition, pom);
 				transform.localScale = Vector3.Lerp( Vector3.one, endPos.localScale,  pom);
-				Camera.main.SendMessage("NextPhase",gamePhaseState);
+				Camera.main.SendMessage("NextPhaseE",gamePhaseState);
 				yield return new WaitForFixedUpdate();
 			}
 		}

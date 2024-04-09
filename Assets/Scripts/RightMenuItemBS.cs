@@ -123,7 +123,7 @@ public class RightMenuItemBS : MonoBehaviour ,  IBeginDragHandler, IDragHandler,
 				psToothbrush2.enableEmission = false;
 				if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopSound( SoundManagerBS.Instance.TeethH);
 				StartCoroutine(nameof(HideToothbrushAnimM));
-				babyC.BBabyBrushTeeth(false);
+				babyC.BabyBrushTeeth(false);
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class RightMenuItemBS : MonoBehaviour ,  IBeginDragHandler, IDragHandler,
 						if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.TeethH);
 						toothbrush2.enabled =true;
 						toothbrush1.enabled =false;
-						babyC.BBabyBrushTeeth(true);
+						babyC.BabyBrushTeeth(true);
 						if(progressS<=2)
 						{
 							blackTeeth1.color = new Color(1,1,1,1-progressS/2f);
@@ -178,7 +178,7 @@ public class RightMenuItemBS : MonoBehaviour ,  IBeginDragHandler, IDragHandler,
 						toothbrush2.enabled =false;
 					}
 					StartCoroutine(nameof(HideToothbrushAnimM));
-					Camera.main.SendMessage("CompletedAction");
+					Camera.main.SendMessage("CompletedActionN");
 
 					blackTeeth1.color = new Color(1,1,1,0);
 					blackTeeth2.color = new Color(1,1,1,0);
@@ -197,7 +197,7 @@ public class RightMenuItemBS : MonoBehaviour ,  IBeginDragHandler, IDragHandler,
 				if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopSound( SoundManagerBS.Instance.TeethH);
 				toothbrush1.enabled =true;
 				toothbrush2.enabled =false;
-				babyC.BBabyBrushTeeth(false);
+				babyC.BabyBrushTeeth(false);
 			}
 		}
 	}
@@ -256,7 +256,7 @@ public class RightMenuItemBS : MonoBehaviour ,  IBeginDragHandler, IDragHandler,
 		if(bSnappingG )
 		{
 			bSelectableE = false; 
-			Camera.main.SendMessage("NextPhase", "TissueClean" );
+			Camera.main.SendMessage("NextPhaseE", "TissueClean" );
 		}
 		activeItemM.localPosition = startPositionN;
 		activeItemM.gameObject.SetActive(false);

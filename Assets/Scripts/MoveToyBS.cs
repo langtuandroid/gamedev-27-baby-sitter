@@ -145,7 +145,7 @@ public class MoveToyBS : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDr
 		transform.SetParent(target);
 		transform.localPosition = Vector3.zero;
  
-		Camera.main.SendMessage("NextPhase",  SendMessageOptions.DontRequireReceiver);
+		Camera.main.SendMessage("NextPhaseE",  SendMessageOptions.DontRequireReceiver);
 		yield return new WaitForFixedUpdate();
 	}
 	

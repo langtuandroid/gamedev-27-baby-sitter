@@ -95,7 +95,7 @@ public class MosquitoMove : MonoBehaviour {
 			bUnistenN= true;
 			transform.GetChild(0).gameObject.SetActive(false);
 			transform.GetChild(1).gameObject.SetActive(true);
-			Camera.main.SendMessage("NextPhase", "MosquitoHit", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "MosquitoHit", SendMessageOptions.DontRequireReceiver);
 
 			if(	bSoundActiveE)
 			{

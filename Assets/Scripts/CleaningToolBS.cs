@@ -102,7 +102,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 		}
 	}
 	
-	private void CreateBubblesS()
+	private void CreateBubbles()
 	{
 		if(toolBehavior == ToolBehavior.AnimateOnlyWhenMovingOverObject && !pointerEventData.IsPointerMoving()) return;
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(testPointT.position, testDistance  , 1 << LayerMask.NameToLayer("Tool"+toolNo.ToString()+"Interact")); //layermask to filter the varius colliders
@@ -122,13 +122,13 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 
 			if(bubblesCountT >= 50 )
 			{
-				CancelInvoke(nameof(CreateBubblesS));
-				ToolCleaningFinishedD();
+				CancelInvoke(nameof(CreateBubbles));
+				ToolCleaningFinished();
 			}
 		}	
 	}
  
-	private void TestCleanN()
+	private void TestClean()
 	{ 
 		if(BCleaningG) return;
 		if(toolBehavior == ToolBehavior.AnimateOnlyWhenMovingOverObject && !pointerEventData.IsPointerMoving()) return;
@@ -177,7 +177,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 	}
 
 
-	private void ToolCleaningFinishedD()
+	private void ToolCleaningFinished()
 	{
 		if(!bIsKoriscen)
 		{
@@ -187,7 +187,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 			else if(toolTypeE == ToolType.BathtubPlug) gamePhaseState = "BathtubPlug";
 			else if(toolTypeE == ToolType.towel) gamePhaseState = "Towel";
 
-			Camera.main.SendMessage("NextPhase", gamePhaseState, SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", gamePhaseState, SendMessageOptions.DontRequireReceiver);
 
 	 
 			bIsKoriscen = true;
@@ -214,13 +214,13 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 	public void ShampooBottle_MoveBack()
 	{
 		BCleaningG = false;
-		ToolCleaningFinishedD();
+		ToolCleaningFinished();
 	}
 
 	public void BathTubgPlug_MoveBack()
 	{
 		BCleaningG = false;
-		ToolCleaningFinishedD();
+		ToolCleaningFinished();
 	}
 
 	 
@@ -228,7 +228,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 	{
 		OneToolEnabledNoN = 0;
 		bDrag = false;
-		CancelInvoke(nameof(TestCleanN));
+		CancelInvoke(nameof(TestClean));
 		yield return new WaitForEndOfFrame();
 		float pom = 0;
 		Vector3 sPos = transform.position;
@@ -247,11 +247,11 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 		cyclesS++;
 		if( toolTypeE == ToolType.towel  && cyclesS ==(cyclesToFinishH-1)) 
 		{
-			Camera.main.SendMessage("HideWaterDropsTowel",  SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("HideWaterDropsTowelL",  SendMessageOptions.DontRequireReceiver);
 		}
 		if( toolTypeE != ToolType.soap  && cyclesS ==cyclesToFinishH) 
 		{
-			ToolCleaningFinishedD();
+			ToolCleaningFinished();
 		}
 		if( toolTypeE == ToolType.soap  )
 		{ 
@@ -289,12 +289,12 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 			diffPos =transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)   ;
 			diffPos = new Vector3(diffPos.x,diffPos.y,0);
 			
-			InvokeRepeating(nameof(TestCleanN),0f, .1f);
+			InvokeRepeating(nameof(TestClean),0f, .1f);
 			
 			transform.SetParent(dragItemParentT);
 			if( toolTypeE == ToolType.soap  )
 			{
-				InvokeRepeating(nameof(CreateBubblesS),0f, .1f);
+				InvokeRepeating(nameof(CreateBubbles),0f, .1f);
 			}
 			else if( toolTypeE == ToolType.shampoo  )
 			{
@@ -319,11 +319,11 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
  
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		if(toolTypeE == ToolType.soap) CancelInvoke(nameof(CreateBubblesS));
+		if(toolTypeE == ToolType.soap) CancelInvoke(nameof(CreateBubbles));
 		if(  !bIsKoriscen &&  bDrag 	)  
 		{
 			bDrag = false;
-			CancelInvoke(nameof(TestCleanN));
+			CancelInvoke(nameof(TestClean));
 			StartCoroutine(nameof(MoveBackK) );
 			if(toolTypeE == ToolType.spray ) 
 			{
@@ -377,7 +377,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 
 	public void StartMoveBackK()
 	{
-		CancelInvoke(nameof(TestCleanN));
+		CancelInvoke(nameof(TestClean));
 		StartCoroutine(nameof(MoveBackK) );
 	
 	}
@@ -392,7 +392,7 @@ public class CleaningToolBS : MonoBehaviour  , IBeginDragHandler, IDragHandler, 
 			{
 				bDrag = false;
 				
-				CancelInvoke(nameof(TestCleanN));
+				CancelInvoke(nameof(TestClean));
 				StartCoroutine(nameof(MoveBackK) );
 			}
 		}

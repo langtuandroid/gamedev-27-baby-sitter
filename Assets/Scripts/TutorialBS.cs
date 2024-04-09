@@ -47,7 +47,7 @@ public class TutorialBS : MonoBehaviour {
 		StopAllCoroutines();
 		CancelInvoke(nameof(RepeatTutor));
 		lastTutorialL = "";
-		StartCoroutine($"CShowPointerAndMoveToPosition", 0);
+		StartCoroutine($"CShowPointerAndMoveToPositionN", 0);
 	}
 
 	public void ShowPointerAndMoveToPositionN(int  tutorialPhase, float delay)

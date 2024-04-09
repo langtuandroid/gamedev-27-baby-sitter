@@ -44,55 +44,53 @@ public class Minigame3BS : MonoBehaviour {
 		yield return new WaitForSeconds(.1f);
 		
 		babyC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
-		babyC.BBabyCryingIdle();
+		babyC.BabyCryingIdle();
 
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 
 		TutorialBS.Instance.ShowTutorial(0);
 	}
 
-	public void NextPhase( string phaseState )
+	public void NextPhaseE( string phaseState )
 	{
 		StartCoroutine(nameof(WaitNextPhase),phaseState);
 	}
 
 	private IEnumerator WaitNextPhase( string phaseState )
 	{
-		 
 		if(phaseState == "GiveToy" && !bToyY)
 		{
 			bToyY = true;
 
 			phaseE ++;
-			CompletedAction();
+			CompletedActionN();
 		}
 		else if(phaseState == "GivePacifier" && !bPacifierR)
 		{
 			bPacifierR = true;
 
 			phaseE ++;
-			babyC.BBabyIdle();
-			CompletedAction();
+			babyC.BabyIdle();
+			CompletedActionN();
 		}
 		else  if(phaseState == "Blanket" && !bBlanketT)
 		{
 			bBlanketT = true;
 			phaseE ++;
-			CompletedAction();
+			CompletedActionN();
 			 
 		}
 		else  if(phaseState == "LampHandle" && !bLampP )
 		{
 			bLampP = true;
 			phaseE ++;
-			CompletedAction();
-			 
+			CompletedActionN();
 		}
 		else if(phaseState == "Cradle" && phaseE==4 )
 		{
 			phaseE ++;
-			CompletedAction();
+			CompletedActionN();
 			cradle.bCradleCountEnabled = false;
 		}
 
@@ -102,7 +100,7 @@ public class Minigame3BS : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 	}
 
-	public void UndoPhase( string phaseState )
+	public void UndoPhaseE( string phaseState )
 	{
 		if(phaseState == "GiveToy" && bToyY)
 		{
@@ -110,14 +108,14 @@ public class Minigame3BS : MonoBehaviour {
 			
 			phaseE --;
 			_completedActionNoN-=2;
-			CompletedAction(false);
+			CompletedActionN(false);
 		}
 		else if(phaseState == "GivePacifier" && bPacifierR)
 		{
 			bPacifierR = false;
 			phaseE --;
 			_completedActionNoN-=2;
-			CompletedAction(false);
+			CompletedActionN(false);
 
 		}
 		else  if(phaseState == "Blanket" && bBlanketT)
@@ -125,7 +123,7 @@ public class Minigame3BS : MonoBehaviour {
 			bBlanketT = false;
 			phaseE--;
 			_completedActionNoN-=2;
-			CompletedAction( false);
+			CompletedActionN( false);
 			 
 		}
 		else  if(phaseState == "LampHandle" && bLampP )
@@ -133,7 +131,7 @@ public class Minigame3BS : MonoBehaviour {
 			bLampP = false;
 			phaseE--;
 			_completedActionNoN-=2;
-			CompletedAction(false);
+			CompletedActionN(false);
  
 		}
 
@@ -143,7 +141,7 @@ public class Minigame3BS : MonoBehaviour {
 		ShowTutorial();
 	}
 	
-	public void CompletedAction(bool playSound  )
+	public void CompletedActionN(bool playSound  )
 	{
 		_completedActionNoN++;
 		progressBar.SetProgressBar(_completedActionNoN/5f , true );
@@ -162,9 +160,9 @@ public class Minigame3BS : MonoBehaviour {
 	public void BabySleepP(int state)
 	{
 		if(state == 1)
-			babyC.BBabySleepy();
+			babyC.BabySleepy();
 		if(state == 2)
-			babyC.BBabySleepy2();
+			babyC.BabySleepy2();
 	}
 
 
@@ -177,16 +175,14 @@ public class Minigame3BS : MonoBehaviour {
 		else  TutorialBS.Instance.ShowTutorial(4);
 	}
 
-	public void CompletedAction( )
+	public void CompletedActionN( )
 	{
 		_completedActionNoN++;
 		progressBar.SetProgressBar(_completedActionNoN/5f , true );
-
-
-
+		
 		if(_completedActionNoN == 5)
 		{
-			babyC.BBabySleeping();
+			babyC.BabySleeping();
 			psSleeping.SetActive(true);
 			if( SoundManagerBS.Instance!=null)SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.MinigameCompleted);
 			StartCoroutine(nameof(LevelCompletedD));
@@ -219,7 +215,7 @@ public class Minigame3BS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicksBs.Instance.SetBlockAllL(true);
 	}
 
@@ -229,7 +225,7 @@ public class Minigame3BS : MonoBehaviour {
 		psSleeping.GetComponent<ParticleSystem>().enableEmission = false;
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 	}
 

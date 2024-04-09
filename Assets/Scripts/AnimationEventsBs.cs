@@ -5,36 +5,36 @@ public class AnimationEventsBs : MonoBehaviour {
 	
 	private Animator animM;
 
-	public void AnimEventHideSceneAnimStartedD()
+	public void AnimEventHideSceneAnimStarted()
 	{
-		LevelTransitionBS.Instance.AnimEventHideSceneAnimStartedD();
+		LevelTransitionBS.Instance.AnimEventHideSceneAnimStarted();
 	}
 	
-	public void AnimEventShowSceneAnimFinishedD()
+	public void AnimEventShowSceneAnimFinished()
 	{
-		LevelTransitionBS.Instance.AnimEventShowSceneAnimFinishedD();
+		LevelTransitionBS.Instance.AnimEventShowSceneAnimFinished();
 	}
 	
-	public void ShampooBottle_Drop()
+	public void ShampooBottleDrop()
 	{
 		if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.CreamTubeE);
-		transform.parent.SendMessage("ShampooBottleDrop");
+		transform.parent.SendMessage("ShampooBottle_Drop");
 	}
 	
-	public void ShampooBottle_MoveBack()
+	public void ShampooBottleMoveBack()
 	{
-		transform.parent.SendMessage("ShampooBottleMoveBack");
+		transform.parent.SendMessage("ShampooBottle_MoveBack");
 	}
 
-	public void BathTubgPlug_MoveBack()
+	public void BathTubgPlugMoveBack()
 	{
 		if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.BathtubPlugG);
-		transform.parent.SendMessage("BathTubgPlugMoveBack");
+		transform.parent.SendMessage("BathTubgPlug_MoveBack");
 	}
 	
-	public void CleaningAnimation_Finished()
+	public void CleaningAnimationFinished()
 	{
-		transform.parent.SendMessage("CleaningAnimationFinished",SendMessageOptions.DontRequireReceiver);
+		transform.parent.SendMessage("CleaningAnimation_Finished",SendMessageOptions.DontRequireReceiver);
 	}
 	
 	public void StartParticlesS()
@@ -42,33 +42,31 @@ public class AnimationEventsBs : MonoBehaviour {
 		transform.GetComponentInChildren<ParticleSystem>().Play();
 	}
 	
-	public void MosquitoAnim_End()
+	public void MosquitoAnimEnd()
 	{
 		if(animM == null) animM = transform.GetComponent<Animator>();
 		animM.SetInteger("moveAnimNo", Random.Range(1,7));
 	}
 	
-	public void AnimSmack_End()
+	public void AnimSmackEnd()
 	{
 		transform.parent.SendMessage("AnimSmackEnd");
 	}
 
-	public void AnimCereal_ChangeSprite1()
+	public void AnimCerealChangeSprite1()
 	{
 		Camera.main.SendMessage("ChangeSpriteCereal", 1, SendMessageOptions.DontRequireReceiver);
 	}
-	public void AnimCereal_ChangeSprite2()
+	public void AnimCerealChangeSprite2()
 	{
 		Camera.main.SendMessage("ChangeSpriteCereal", 2, SendMessageOptions.DontRequireReceiver);
 	}
  
-	public void AnimFruitsBowl_ChangeSprite()
+	public void AnimFruitsBowlChangeSprite()
 	{
-		Camera.main.SendMessage("ChangeSpriteFruitsBowl",   SendMessageOptions.DontRequireReceiver);
+		Camera.main.SendMessage("ChangeSpriteFruitsBowlL",   SendMessageOptions.DontRequireReceiver);
 	}
-
- 
-
+	
 	public void AnimLiquidIn()
 	{
 		if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.LiquidD);
@@ -87,9 +85,7 @@ public class AnimationEventsBs : MonoBehaviour {
 	{
 		if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.StopSound( SoundManagerBS.Instance.CerealL);
 	}
-
-	 
-
+	
 	public void AnimBlenderOn()
 	{
 		if( SoundManagerBS.Instance!=null)  

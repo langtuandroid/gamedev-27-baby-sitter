@@ -257,7 +257,7 @@ public class TopMenuItemBS : MonoBehaviour,  IBeginDragHandler, IDragHandler, IE
 					_selectedRecord =  transform.GetChild(0).GetComponent<Image>() ;
 					_selectedRecordSprite = activeItemM.GetComponent<Image>().sprite;
 
-					 Camera.main.SendMessage("PlayRecord" , transform.name, SendMessageOptions.DontRequireReceiver);
+					 Camera.main.SendMessage("PlayRecordD" , transform.name, SendMessageOptions.DontRequireReceiver);
 				}
 
 				int cc=targetPoint[closestPoint].childCount;
@@ -267,30 +267,30 @@ public class TopMenuItemBS : MonoBehaviour,  IBeginDragHandler, IDragHandler, IE
 				 
 				if( Application.loadedLevelName == "Minigame 1"     )  
 				{
-					if( MiniGame1BS.CompletedActionNoN == (activeMenu+1) ) Camera.main.SendMessage("CompletedAction");
+					if( MiniGame1BS.CompletedActionNoN == (activeMenu+1) ) Camera.main.SendMessage("CompletedActionN");
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.ButtonClick2);
 				}
 
 				else if( Application.loadedLevelName == "Minigame 2")
 				{
-					Camera.main.SendMessage("NextPhase","GiveToy");
+					Camera.main.SendMessage("NextPhaseE","GiveToy");
 					 //if( SoundManager.Instance!=null)  SoundManager.Instance.Play_Sound( SoundManager.Instance.DropInWater);
 				}
 
 				else if( Application.loadedLevelName == "Minigame 3" && activeItemM.parent.name == "Cucla")
 				{
-					Camera.main.SendMessage("NextPhase","GivePacifier");
+					Camera.main.SendMessage("NextPhaseE","GivePacifier");
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.ButtonClick2);
 				}
 				else  if( Application.loadedLevelName == "Minigame 3" && activeItemM.parent.name != "Cucla")
 				{
-					Camera.main.SendMessage("NextPhase","GiveToy");
+					Camera.main.SendMessage("NextPhaseE","GiveToy");
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.ButtonClick2);
 				}
 
 				if( Application.loadedLevelName == "Minigame 4"     )  
 				{
-					if( Minigame4BS.CompletedActionNoN == 1 ) Camera.main.SendMessage("CompletedAction");
+					if( Minigame4BS.CompletedActionNoN == 1 ) Camera.main.SendMessage("CompletedActionN");
 					if(  SoundManagerBS.Instance!=null)  	SoundManagerBS.Instance.StopAndPlay_Sound( SoundManagerBS.Instance.ButtonClick2);
 				}
 

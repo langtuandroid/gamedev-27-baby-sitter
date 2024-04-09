@@ -52,16 +52,16 @@ public class Minigame5ABS : MonoBehaviour {
 		blenderButton.enabled = false;
 		
 		babyC.GetComponent<SetBabyAtlasBS>().SetBabyY(GameDataBS.GetSelectedBabyY());
-		babyC.BBabyIdle();
+		babyC.BabyIdle();
 
 		yield return new WaitForSeconds(1);
-		LevelTransitionBS.Instance.ShowSceneE();
+		LevelTransitionBS.Instance.ShowScene();
 		animBlender.Play("showBlender");
 
 		TutorialBS.Instance.ShowTutorial(0);
 	}
 
-	public void NextPhaseS( string phaseState )
+	public void NextPhaseE( string phaseState )
 	{
 		StartCoroutine(nameof(WaitNextPhaseS),phaseState);
 	}
@@ -144,7 +144,7 @@ public class Minigame5ABS : MonoBehaviour {
 		}
 		else  if(phaseState == "FeedBaby"  )
 		{
-			babyC.BBabyIdle();
+			babyC.BabyIdle();
 			phaseE ++;
 			CompletedActionN();
 			animSpoon.enabled = true;
@@ -209,7 +209,7 @@ public class Minigame5ABS : MonoBehaviour {
 		{
 			if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.PlaySound( SoundManagerBS.Instance.MinigameCompleted);
 			StartCoroutine(nameof(LevelCompletedD));
-			babyC.BBabySmile();
+			babyC.BabySmile();
 		}
 		else 
 		{
@@ -237,7 +237,7 @@ public class Minigame5ABS : MonoBehaviour {
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		StopAllCoroutines();
 		GameDataBS.BCompletedMiniGameE = false;
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame"); 
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame"); 
 		BlockClicksBs.Instance.SetBlockAllL(true);
 		//Implementation.Instance.ShowInterstitial();
 	}
@@ -247,7 +247,7 @@ public class Minigame5ABS : MonoBehaviour {
 		_completedActionNoN = 0;
 		if(SoundManagerBS.Instance!=null) SoundManagerBS.Instance.Play_ButtonClickK();
 		BlockClicksBs.Instance.SetBlockAllL(true);
-		LevelTransitionBS.Instance.HideSceneAndLoadNextT("SelectMinigame");
+		LevelTransitionBS.Instance.HideSceneAndLoadNext("SelectMinigame");
 		StopAllCoroutines();
 		//Implementation.Instance.ShowInterstitial();
 	}

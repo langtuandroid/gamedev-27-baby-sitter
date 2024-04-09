@@ -76,7 +76,7 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 	}
 
 
-	private void TestTargetT()
+	private void TestTarget()
 	{ 
 		if(bAnimationActiveE || bIsKoriScene) return;
 
@@ -97,20 +97,20 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		 
 		if(targetPointIndex >-1)
 		{
-			StartCoroutine(nameof(SnapToTargetT),targetPoint[targetPointIndex]);
+			StartCoroutine(nameof(SnapToTarget),targetPoint[targetPointIndex]);
 		}
 		else if( bTestOnlyOnEndDrag) 
 		{
-			StartCoroutine(nameof(MoveBackK) );
+			StartCoroutine(nameof(MoveBack) );
 		}
 
 	}
 
-	private IEnumerator SnapToTargetT( Transform target)
+	private IEnumerator SnapToTarget( Transform target)
 	{
 		OneItemEnabledNo = 0;
 		bDrag = false;
-		CancelInvoke(nameof(TestTargetT));
+		CancelInvoke(nameof(TestTarget));
  
 		yield return new WaitForEndOfFrame();
 		if(animationType =="BlenderTop" && animator != null) 
@@ -128,10 +128,10 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			animator.enabled = true;
 			animator.Play("PourMash",-1,0);
 			yield return new WaitForSeconds(0.1f);
-			Camera.main.SendMessage("NextPhase", "PourMash", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "PourMash", SendMessageOptions.DontRequireReceiver);
 			yield return new WaitForSeconds(1.3f);
 			animator.enabled = false;
-			StartCoroutine(nameof(MoveBackK));
+			StartCoroutine(nameof(MoveBack));
  
 
 		}
@@ -178,9 +178,9 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 				yield return new WaitForFixedUpdate();
 			}
 			OneItemEnabledNo = -1;
-			Camera.main.SendMessage("NextPhase", "FruitBlender", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "FruitBlender", SendMessageOptions.DontRequireReceiver);
 			yield return new WaitForSeconds(.2F);
-			Camera.main.SendMessage("ShowChoppedFruitBlender", ItemNo );
+			Camera.main.SendMessage("ShowChoppedFruitBlenderR", ItemNo );
 			transform.GetChild(0).gameObject.SetActive(false);
 			Destroy(transform.gameObject,1);
 		}
@@ -199,10 +199,10 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			animator.enabled = true;
 			animator.Play("InsertMilk",-1,0);
 			yield return new WaitForSeconds(0.1f);
-			Camera.main.SendMessage("NextPhase", "InsertMilk", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "InsertMilk", SendMessageOptions.DontRequireReceiver);
 			yield return new WaitForSeconds(1.3f);
 			//animator.enabled = false;
-			StartCoroutine(nameof(MoveBackK));
+			StartCoroutine(nameof(MoveBack));
 
 			
 		}
@@ -222,10 +222,10 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			animator.enabled = true;
 			animator.Play("InsertCereal",-1,0);
 			yield return new WaitForSeconds(0.1f);
-			Camera.main.SendMessage("NextPhase", "InsertCereal", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "InsertCereal", SendMessageOptions.DontRequireReceiver);
 			yield return new WaitForSeconds(1.3f);
 			//animator.enabled = false;
-			StartCoroutine(nameof(MoveBackK));
+			StartCoroutine(nameof(MoveBack));
 			
 			
 		}
@@ -245,10 +245,10 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			animator.enabled = true;
 			animator.Play("InsertFruits",-1,0);
 			yield return new WaitForSeconds(0.1f);
-			Camera.main.SendMessage("NextPhase", "InsertFruits", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "InsertFruits", SendMessageOptions.DontRequireReceiver);
 			yield return new WaitForSeconds(1.3f);
 			//animator.enabled = false;
-			StartCoroutine(nameof(MoveBackK));
+			StartCoroutine(nameof(MoveBack));
 			
 			
 		}
@@ -269,7 +269,7 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			Destroy( GameObject.Find ("CleanWithTissue"));
 			animator.Play("TissueClean",-1,0);
 			yield return new WaitForSeconds(1.3f);
-			Camera.main.SendMessage("NextPhase", "CleanBaby", SendMessageOptions.DontRequireReceiver);
+			Camera.main.SendMessage("NextPhaseE", "CleanBaby", SendMessageOptions.DontRequireReceiver);
 
 			 
 		 
@@ -302,7 +302,7 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			dragItemParentT.position = transform.parent .position;
 			transform.SetParent(dragItemParentT);
 
-			if(!bTestOnlyOnEndDrag) InvokeRepeating("TestTargetT",0f, .1f);
+			if(!bTestOnlyOnEndDrag) InvokeRepeating("TestTarget",0f, .1f);
 			
 
 
@@ -337,17 +337,17 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		{
 			 
 			bDrag = false;
-			if(bTestOnlyOnEndDrag &&  !bIsKoriScene) TestTargetT();
+			if(bTestOnlyOnEndDrag &&  !bIsKoriScene) TestTarget();
 			else
 			{
-				CancelInvoke(nameof(TestTargetT));
-				StartCoroutine(nameof(MoveBackK) );
+				CancelInvoke(nameof(TestTarget));
+				StartCoroutine(nameof(MoveBack) );
 			}
 		 
 		}
 	}
 	
-	private IEnumerator MoveBackK(  )
+	private IEnumerator MoveBack(  )
 	{
 		if(!bMovingBack)
 		{
@@ -382,10 +382,10 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
  
 	}
 	
-	public void StartMoveBackK()
+	public void StartMoveBack()
 	{
-		CancelInvoke(nameof(TestTargetT));
-		StartCoroutine(nameof(MoveBackK) );
+		CancelInvoke(nameof(TestTarget));
+		StartCoroutine(nameof(MoveBack) );
 		
 	}
 	
@@ -397,8 +397,8 @@ public class DragItemBS : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			{
 				bDrag = false;
 				
-				CancelInvoke(nameof(TestTargetT));
-				StartCoroutine(nameof(MoveBackK) );
+				CancelInvoke(nameof(TestTarget));
+				StartCoroutine(nameof(MoveBack) );
 			}
 		}
 		appFocusS = hasFocus;

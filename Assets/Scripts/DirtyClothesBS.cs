@@ -178,7 +178,7 @@ public class DirtyClothesBS : MonoBehaviour,  IBeginDragHandler, IDragHandler, I
 
 			}
 
-			Camera.main.SendMessage("DirtyClothesInBasket",dirtyItemNo);
+			Camera.main.SendMessage("DirtyClothesInBasketT",dirtyItemNo);
 			GameObject.Destroy(gameObject,.5f);
 		}
 		yield return new WaitForFixedUpdate();

@@ -116,8 +116,8 @@ public class SpoonBS : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDrag
 				bMixingFoodStarted = false;
 				//InvokeRepeating("TestTarget",0f, .1f);
 				bDrag = false;
-				 StartCoroutine("MoveBackK");
-				Camera.main.SendMessage("NextPhase", "MixedFood", SendMessageOptions.DontRequireReceiver);
+				 StartCoroutine(nameof(MoveBackK));
+				Camera.main.SendMessage("NextPhaseE", "MixedFood", SendMessageOptions.DontRequireReceiver);
 				if( SoundManagerBS.Instance!=null)  SoundManagerBS.Instance.StopSound( SoundManagerBS.Instance.MixingFoodD);
 			}
 			 
@@ -148,12 +148,12 @@ public class SpoonBS : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDrag
 				spoonTestPointT = SpoonTestPoint.Bowl;
 				
 				if(cleanWithTissue!=null) cleanWithTissue.color = new Color(1,1,1, .2f*feedCountT);
-				babyC.BBabyEat();
+				babyC.BabyEat();
 				if(feedCountT == 5)
 				{
 					endAnimPosS= transform.position;
 					bFixAnimationMoveE = true;
-					Camera.main.SendMessage("NextPhase", "FeedBaby", SendMessageOptions.DontRequireReceiver);
+					Camera.main.SendMessage("NextPhaseE", "FeedBaby", SendMessageOptions.DontRequireReceiver);
 				}
 			}
 		}
@@ -184,7 +184,7 @@ public class SpoonBS : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDrag
 			if(!bMixingFood)	
 			{
 				InvokeRepeating("TestTargetT",0f, .1f);
-				 babyC.BBabyWaitToEat();
+				 babyC.BabyWaitToEat();
 			}
 			
 		}

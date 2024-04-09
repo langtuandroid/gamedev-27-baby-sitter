@@ -20,7 +20,7 @@ public class MenuBS : MonoBehaviour {
 		blockAll = GameObject.Find("Canvas/BlockAll").GetComponent<CanvasGroup>();
 	}
 
-	public void ResetObjectT()
+	public void ResetObject()
 	{
 		gameObject.SetActive (false);
 	}
@@ -59,7 +59,7 @@ public class MenuBS : MonoBehaviour {
 		if(blockAll == null)   blockAll = GameObject.Find("BlockAll").GetComponent<CanvasGroup>();
 //		Debug.Log("Menu closed");
 		blockAll.blocksRaycasts = false;
-		ResetObjectT();
+		ResetObject();
 	}
 
 	public void MenuOpenedD()
